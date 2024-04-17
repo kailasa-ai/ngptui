@@ -1,0 +1,16 @@
+{
+  "name": "ngpt",
+  "private": true,
+  "type": "module",
+  "description": "Learn the teachings of SPH Nithyananda Swamiji through AI",
+  "scripts": {
+    "chatbot": "pnpm --filter @ngpt/chatbot run dev"
+  },
+  "keywords": [
+    "react",
+    "nextjs",
+    "typescript",
+    "ai"
+  ],
+  "packageManager": "pnpm@9.0.1"
+}
