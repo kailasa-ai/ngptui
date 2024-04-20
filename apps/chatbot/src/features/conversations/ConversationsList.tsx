@@ -42,7 +42,7 @@ const ConversationsList = () => {
   const keys = Object.keys(conversations);
 
   return (
-    <div className="flex flex-col pb-3 gap-5 text-gray-950">
+    <div className="flex flex-col pb-3 gap-5 text-gray-950 text-sm">
       {keys.map((key, index) => {
         return (
           <div
