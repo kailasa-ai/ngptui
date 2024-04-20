@@ -33,7 +33,10 @@ const fetchConversations = async ({ lastId }: { lastId?: string }) => {
 };
 
 export const useConversations = () => {
-  const { data, isLoading, fetchNextPage } = useInfiniteQuery<Page, Error>({
+  const { data, isLoading, fetchNextPage, isFetching } = useInfiniteQuery<
+    Page,
+    Error
+  >({
     queryKey: ["conversations"],
     queryFn: ({ pageParam }) =>
       fetchConversations({ lastId: pageParam as string | undefined }),
@@ -55,6 +58,7 @@ export const useConversations = () => {
     conversations,
     isLoading,
     fetchNextPage,
-    hasMore: data?.pages[data.pages.length - 1].hasMore,
+    hasNextPage: data?.pages[data.pages.length - 1].hasMore,
+    isFetching,
   };
 };

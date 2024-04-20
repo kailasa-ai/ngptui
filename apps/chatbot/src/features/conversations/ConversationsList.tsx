@@ -4,9 +4,32 @@ import { LoaderIcon } from "lucide-react";
 import ConversationItem from "./ConversationItem";
 
 import { useConversations } from "@/features/conversations/useConversations";
+import { useCallback, useRef } from "react";
 
 const ConversationsList = () => {
-  const { conversations, isLoading } = useConversations();
+  const { conversations, isLoading, fetchNextPage, hasNextPage, isFetching } =
+    useConversations();
+  const observer = useRef<IntersectionObserver>();
+
+  const lastElementRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (isLoading) return;
+
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasNextPage && !isFetching) {
+            fetchNextPage();
+          }
+        },
+        { threshold: 0.5 }
+      );
+
+      if (node) observer.current.observe(node);
+    },
+    [fetchNextPage, hasNextPage, isFetching, isLoading]
+  );
 
   if (isLoading) {
     return (
@@ -16,11 +39,17 @@ const ConversationsList = () => {
     );
   }
 
+  const keys = Object.keys(conversations);
+
   return (
     <div className="flex flex-col pb-3 gap-5 text-gray-950">
-      {Object.keys(conversations!).map((key) => {
+      {keys.map((key, index) => {
         return (
-          <div className="h-auto empty:hidden first:mt-5 empty:mt-0" key={key}>
+          <div
+            className="h-auto empty:hidden first:mt-5 empty:mt-0"
+            key={key}
+            ref={index === keys.length - 1 ? lastElementRef : null}
+          >
             <h3 className="h-9 pb-2 pt-3 px-2 text-xs font-medium text-ellipsis overflow-hidden break-all text-gray-400">
               {key}
             </h3>
