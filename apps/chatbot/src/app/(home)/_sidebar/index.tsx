@@ -1,5 +1,5 @@
-import ConversationsList from "./ConversationsList";
-import NewChatButton from "./NewChatButton";
+import ConversationsList from "../../../features/conversations/ConversationsList";
+import NewChatButton from "../../../features/conversations/NewChatButton";
 
 const Sidebar = () => {
   return (

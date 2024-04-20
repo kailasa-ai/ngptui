@@ -1,4 +1,4 @@
-import Sidebar from "../_sidebar";
+import Sidebar from "./_sidebar";
 
 const HomePageLayout = ({ children }: React.PropsWithChildren) => {
   return (

@@ -1,6 +1,9 @@
-import { cn } from "@/lib/utils";
-import { Conversation } from "@/types";
+import Link from "next/link";
 import { MoreHorizontal } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Conversation } from "@/types";
 
 type Props = {
   conversation: Conversation;
@@ -10,7 +13,7 @@ const ConversationItem = (props: Props) => {
   return (
     <li className="relative h-auto">
       <div className="group relative rounded-lg active:opacity-90 hover:bg-[#ececec]">
-        <a
+        <Link
           href={`/chat/${props.conversation.id}`}
           className="flex items-center gap-2 p-2"
         >
@@ -24,7 +27,7 @@ const ConversationItem = (props: Props) => {
               )}
             ></div>
           </div>
-        </a>
+        </Link>
         <div className="absolute right-0 top-0 bottom-0 gap-2 pr-2 hidden group-hover:flex">
           <button className="flex items-center justify-center text-gray-950 transition hover:text-gray-500 radix-state-open:text-gray-500">
             <MoreHorizontal size={20} />
