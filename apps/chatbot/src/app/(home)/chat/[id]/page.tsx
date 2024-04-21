@@ -1,5 +1,7 @@
+import MessagesPage from "@/features/messages/MessagesPage";
+
 const ChatPage = () => {
-  return <div>Welcome to chat page</div>;
+  return <MessagesPage />;
 };
 
 export default ChatPage;
