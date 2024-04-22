@@ -3,7 +3,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { groupedConversationsBydate } from "./utils";
 
-import { Conversation } from "@/types";
+import { Conversation } from "@/types/chat";
 
 type GroupConversationType = ReturnType<typeof groupedConversationsBydate>;
 

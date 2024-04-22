@@ -3,7 +3,7 @@ import { MoreHorizontal } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-import { Conversation } from "@/types";
+import { Conversation } from "@/types/chat";
 import { usePathname } from "next/navigation";
 
 type Props = {

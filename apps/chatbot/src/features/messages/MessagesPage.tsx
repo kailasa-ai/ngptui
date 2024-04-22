@@ -36,7 +36,7 @@ const MessagesPage = () => {
               "md:border-transparent md:dark:border-transparent md:w-[calc(100%-1rem)]"
             )}
           >
-            <MessageForm />
+            <MessageForm conversationId={params.id} />
           </div>
         </div>
       </main>

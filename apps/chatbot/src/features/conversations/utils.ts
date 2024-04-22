@@ -1,4 +1,4 @@
-import { Conversation } from "@/types";
+import { Conversation } from "@/types/chat";
 
 const yearFormatter = new Intl.DateTimeFormat("en-US", {
   year: "numeric",

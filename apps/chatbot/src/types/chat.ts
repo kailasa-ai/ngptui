@@ -1,3 +1,5 @@
+import { Feedbacktype } from "./response";
+
 export type Conversation = {
   id: string;
   name: string;
@@ -25,5 +27,5 @@ export type Message = {
   content: string;
   createdAt: number;
   role: "user" | "assistant";
-  feedback: null | string;
+  feedback: Feedbacktype | null;
 };

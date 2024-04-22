@@ -3,14 +3,14 @@ import { PersonStanding } from "lucide-react";
 import MessageActions from "./components/MessageActions";
 
 import { cn } from "@/lib/utils";
-import { Message } from "@/types";
+import { Message } from "@/types/chat";
 
 type Props = {
   message: Message;
 };
 
 const MessageItem = (props: Props) => {
-  const { role, content } = props.message;
+  const { role, content, id } = props.message;
 
   const isAssistant = role === "assistant";
   const title = isAssistant ? "NithyanandaGPT" : "You";
@@ -32,7 +32,7 @@ const MessageItem = (props: Props) => {
                     "whitespace-pre-wrap break-words overflow-x-auto"
                   )}
                   data-author-role="assistant"
-                  data-messageId="1"
+                  data-message-id={id}
                 >
                   {content}
                 </div>

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { Message, RawMessage } from "@/types";
+import { Message, RawMessage } from "@/types/chat";
 
 export const useMessages = (conversationId: string) => {
   const { data, isLoading } = useQuery<Message[]>({
@@ -24,6 +24,7 @@ export const useMessages = (conversationId: string) => {
             ...temp,
             role: "user",
             content: message.query,
+            id: message.id + "w",
           },
           {
             ...temp,
@@ -34,7 +35,6 @@ export const useMessages = (conversationId: string) => {
       });
     },
   });
-  console.log(data);
 
   return {
     messages: data,

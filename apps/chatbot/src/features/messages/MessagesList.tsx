@@ -5,7 +5,7 @@ import { LoaderIcon } from "lucide-react";
 
 import MessageItem from "./MessageItem";
 
-import { useMessages } from "./useMessages";
+import { useMessages } from "./hooks/useMessages";
 
 const MessagesList = () => {
   const params = useParams<{ id: string }>();
