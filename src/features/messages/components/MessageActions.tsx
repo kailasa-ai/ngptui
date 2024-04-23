@@ -8,7 +8,8 @@ const MessageActions = () => {
       className={cn(
         "text-gray-400 h-8 gap-0.5 w-full",
         "flex self-end lg:self-center items-center justify-end lg:justify-end",
-        "invisible group-hover:visible"
+        "invisible group-hover:visible",
+        "group-last:visible"
       )}
     >
       <button className="rounded-md p-1 text-xs text-gray-400 hover:text-gray-900">
