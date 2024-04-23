@@ -5,7 +5,7 @@ type Params = {
 };
 
 export const GET = async (_: Request, { params }: Params) => {
-  const userId = "anandam";
+  const userId = "madhu";
 
   const searchParams = new URLSearchParams({
     user: userId,

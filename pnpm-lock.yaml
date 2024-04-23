@@ -6,9 +6,7 @@ settings:
 
 importers:
 
-  .: {}
-
-  apps/chatbot:
+  .:
     dependencies:
       '@radix-ui/react-toast':
         specifier: ^1.1.5

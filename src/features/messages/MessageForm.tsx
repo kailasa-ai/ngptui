@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Square, Send } from "lucide-react";
+import { Square, ArrowUp } from "lucide-react";
 
 import ChatInput from "@/features/messages/components/ChatInput";
 
@@ -9,6 +9,30 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   conversationId?: string;
+};
+
+const IconButton = ({
+  children,
+  disabled,
+  rounded = false,
+}: {
+  disabled: boolean;
+  children: React.ReactNode;
+  rounded?: boolean;
+}) => {
+  return (
+    <button
+      disabled={disabled}
+      className={cn(
+        "absolute bottom-2 right-2 border border-black bg-black p-2 ",
+        "text-white transition-colors enabled:bg-black disabled:text-gray-400",
+        "disabled:opacity-10 dark:border-white dark:bg-white dark:hover:bg-white md:right-3",
+        rounded ? "rounded-full" : "rounded-lg"
+      )}
+    >
+      {children}
+    </button>
+  );
 };
 
 const MessageForm = (props: Props) => {
@@ -46,16 +70,9 @@ const MessageForm = (props: Props) => {
             }
           }}
         />
-        <button
-          disabled={!query && !isPending}
-          className={cn(
-            "absolute bottom-2 right-2 rounded-lg border border-black bg-black p-2 ",
-            "text-white transition-colors enabled:bg-black disabled:text-gray-400",
-            "disabled:opacity-10 dark:border-white dark:bg-white dark:hover:bg-white md:right-3"
-          )}
-        >
-          {isPending ? <Square size={18} /> : <Send size={18} />}
-        </button>
+        <IconButton disabled={!query && !isPending} rounded={isPending}>
+          {isPending ? <Square size={16} /> : <ArrowUp size={18} />}
+        </IconButton>
       </div>
     </form>
   );

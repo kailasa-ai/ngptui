@@ -18,7 +18,7 @@ export const POST = async (req: Request) => {
     ...body,
     response_mode: "streaming",
     auto_generate_name: true,
-    user: "anandam",
+    user: "madhu",
     inputs: {},
   };
 
@@ -29,7 +29,6 @@ export const POST = async (req: Request) => {
   headers.set("Connection", "keep-alive");
 
   let responseStream = new TransformStream();
-  console.log(payload);
 
   const response = await fetch(`${process.env.DIFY_URL}/chat-messages`, {
     body: JSON.stringify(payload),
