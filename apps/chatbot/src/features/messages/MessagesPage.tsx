@@ -1,14 +1,59 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 
 import MessagesList from "./MessagesList";
 import MessageForm from "./MessageForm";
 
+import { useActiveChat } from "./hooks/useActiveChat";
+
 import { cn } from "@/lib/utils";
+
+const debounce = (fn: () => void, delay: number) => {
+  let timeout: NodeJS.Timeout;
+
+  return () => {
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+      fn();
+    }, delay);
+  };
+};
 
 const MessagesPage = () => {
   const params = useParams<{ id?: string }>();
+  const listRef = useRef<HTMLDivElement>(null);
+  const debouncedScroll = useRef(
+    debounce(() => {
+      const element = listRef.current;
+
+      if (!element) return;
+
+      if (
+        element.scrollHeight - element.scrollTop < element.clientHeight ||
+        element.scrollHeight < element.clientHeight
+      ) {
+        return;
+      }
+
+      listRef.current?.scrollBy({
+        top: listRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }, 100)
+  );
+
+  useEffect(() => {
+    const unsubscribe = useActiveChat.subscribe(() => {
+      debouncedScroll.current();
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <div
@@ -21,7 +66,10 @@ const MessagesPage = () => {
         <div role="presentation" className="h-full flex flex-col">
           <div className="flex-1 overflow-hidden">
             <div className="h-full w-full">
-              <div className="h-full overflow-auto w-full text-sm pb-9">
+              <div
+                ref={listRef}
+                className="h-full overflow-auto w-full text-sm pb-9"
+              >
                 <header className="sticky top-0 mb-1.5 flex items-center justify-between z-10 h-14 p-2 font-semibold bg-white">
                   <h2>Nithyananda GPT</h2>
                 </header>

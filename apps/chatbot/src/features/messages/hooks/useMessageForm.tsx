@@ -6,6 +6,8 @@ import {
 
 import { ssePost } from "@/lib/helpers";
 
+import { useActiveChat } from "./useActiveChat";
+
 import { Message } from "@/types/chat";
 
 type Payload = { query: string; conversationId?: string };
@@ -22,49 +24,44 @@ const sendMessageApi = (payload: Payload, queryClient: QueryClient) => {
       },
       {
         onWorkflowStarted: (data) => {
-          queryClient.setQueryData(
-            ["messages", payload.conversationId],
-            (oldData: Message[]) => {
-              return [
-                ...oldData,
-                {
-                  id: data.message_id + "w",
-                  conversationId: data.conversation_id,
-                  createdAt: data.data.created_at,
-                  feedback: null,
-                  role: "user",
-                  content: payload.query,
-                },
-                {
-                  id: data.message_id,
-                  conversationId: data.conversation_id,
-                  createdAt: data.data.created_at,
-                  feedback: null,
-                  role: "assistant",
-                  content: "",
-                },
-              ];
-            }
-          );
+          const state = useActiveChat.getState();
+
+          state.addMessages(data.task_id, [
+            {
+              id: data.message_id + "w",
+              conversationId: data.conversation_id,
+              createdAt: data.data.created_at,
+              feedback: null,
+              role: "user",
+              content: payload.query,
+            },
+            {
+              id: data.message_id,
+              conversationId: data.conversation_id,
+              createdAt: data.data.created_at,
+              feedback: null,
+              role: "assistant",
+              content: "",
+            },
+          ]);
         },
         onData: (message, isFirstMessage, moreInfo) => {
+          const state = useActiveChat.getState();
+
+          state.updateMessage(moreInfo.messageId, message);
+        },
+        onCompleted: () => {
+          const state = useActiveChat.getState();
+
           queryClient.setQueryData(
             ["messages", payload.conversationId],
             (oldData: Message[]) => {
-              return oldData.map((msg) => {
-                if (msg.id === moreInfo.messageId) {
-                  return {
-                    ...msg,
-                    content: msg.content + message,
-                  };
-                }
-
-                return msg;
-              });
+              return [...oldData, ...state.messages];
             }
           );
-        },
-        onCompleted: () => {
+
+          state.clearState();
+
           resolve();
         },
         onError: (error) => {
