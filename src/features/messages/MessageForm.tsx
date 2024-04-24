@@ -14,14 +14,19 @@ type Props = {
 const IconButton = ({
   children,
   disabled,
+  onClick,
+
   rounded = false,
 }: {
   disabled: boolean;
   children: React.ReactNode;
+  onClick: (e: React.MouseEvent) => void;
   rounded?: boolean;
 }) => {
   return (
     <button
+      type="button"
+      onClick={onClick}
       disabled={disabled}
       className={cn(
         "absolute bottom-2 right-2 border border-black bg-black p-2 ",
@@ -70,7 +75,20 @@ const MessageForm = (props: Props) => {
             }
           }}
         />
-        <IconButton disabled={!query && !isPending} rounded={isPending}>
+        <IconButton
+          disabled={!query && !isPending}
+          rounded={isPending}
+          onClick={() => {
+            if (query) {
+              sendMessage({
+                query,
+                conversationId: props.conversationId,
+              });
+
+              setQuery("");
+            }
+          }}
+        >
           {isPending ? <Square size={16} /> : <ArrowUp size={18} />}
         </IconButton>
       </div>

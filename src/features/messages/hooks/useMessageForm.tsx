@@ -9,6 +9,7 @@ import { ssePost } from "@/lib/helpers";
 import { useActiveChat } from "./useActiveChat";
 
 import { Message } from "@/types/chat";
+import { navigate } from "@/app/actions";
 
 type Payload = { query: string; conversationId?: string };
 
@@ -52,6 +53,16 @@ const sendMessageApi = (payload: Payload, queryClient: QueryClient) => {
         },
         onCompleted: () => {
           const state = useActiveChat.getState();
+
+          if (!payload.conversationId) {
+            const conversationId = state.messages[0].conversationId;
+            state.clearState();
+
+            queryClient.invalidateQueries({ queryKey: ["conversations"] });
+
+            navigate(`/chat/${conversationId}`);
+            return;
+          }
 
           queryClient.setQueryData(
             ["messages", payload.conversationId],

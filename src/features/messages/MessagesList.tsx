@@ -19,11 +19,20 @@ const ActiveMessages = () => {
 const MessagesList = () => {
   const params = useParams<{ id: string }>();
   const { messages, isLoading } = useMessages(params.id);
+  const taskId = useActiveChat((state) => state.taskId);
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-[60vh] w-full">
         <LoaderIcon className="animate-spin" />
+      </div>
+    );
+  }
+
+  if (!params.id && !taskId) {
+    return (
+      <div className="flex items-center justify-center h-1/2 text-xl">
+        Start Chatting
       </div>
     );
   }

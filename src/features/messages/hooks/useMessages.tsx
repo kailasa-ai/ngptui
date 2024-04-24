@@ -2,10 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 
 import { Message, RawMessage } from "@/types/chat";
 
-export const useMessages = (conversationId: string) => {
+export const useMessages = (conversationId?: string) => {
   const { data, isLoading } = useQuery<Message[]>({
     queryKey: ["messages", conversationId],
     queryFn: async () => {
+      if (!conversationId) {
+        return [];
+      }
+
       const response = await fetch(`/api/conversations/${conversationId}`);
       const { data } = (await response.json()) as {
         data: RawMessage[];

@@ -73,7 +73,7 @@ const MessagesPage = () => {
                 <header className="sticky top-0 mb-1.5 flex items-center justify-between z-10 h-14 p-2 font-semibold bg-white">
                   <h2>Nithyananda GPT</h2>
                 </header>
-                {params.id ? <MessagesList /> : <div>Start Chatting</div>}
+                <MessagesList />
               </div>
               <div className="scroll-to-bottom"></div>
             </div>
