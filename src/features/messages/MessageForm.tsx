@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Square, ArrowUp } from "lucide-react";
 
@@ -15,13 +17,14 @@ const IconButton = ({
   children,
   disabled,
   onClick,
-
+  ariaLabel,
   rounded = false,
 }: {
   disabled: boolean;
   children: React.ReactNode;
   onClick: (e: React.MouseEvent) => void;
   rounded?: boolean;
+  ariaLabel?: string;
 }) => {
   return (
     <button
@@ -34,6 +37,7 @@ const IconButton = ({
         "disabled:opacity-10 dark:border-white dark:bg-white dark:hover:bg-white md:right-3",
         rounded ? "rounded-full" : "rounded-lg"
       )}
+      aria-label={ariaLabel}
     >
       {children}
     </button>
@@ -88,6 +92,7 @@ const MessageForm = (props: Props) => {
               setQuery("");
             }
           }}
+          ariaLabel={isPending ? "Stop message" : "Send message"}
         >
           {isPending ? <Square size={16} /> : <ArrowUp size={18} />}
         </IconButton>

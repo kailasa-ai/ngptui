@@ -9,11 +9,15 @@ import { ssePost } from "@/lib/helpers";
 import { useActiveChat } from "./useActiveChat";
 
 import { Message } from "@/types/chat";
-import { navigate } from "@/app/actions";
+import { useRouter } from "next/navigation";
 
 type Payload = { query: string; conversationId?: string };
 
-const sendMessageApi = (payload: Payload, queryClient: QueryClient) => {
+const sendMessageApi = (
+  payload: Payload,
+  queryClient: QueryClient,
+  onNavigate: (conversationId: string) => void
+) => {
   return new Promise<void>(async (resolve, reject) => {
     await ssePost(
       "/api/chat",
@@ -54,24 +58,22 @@ const sendMessageApi = (payload: Payload, queryClient: QueryClient) => {
         onCompleted: () => {
           const state = useActiveChat.getState();
 
-          if (!payload.conversationId) {
-            const conversationId = state.messages[0].conversationId;
-            state.clearState();
-
-            queryClient.invalidateQueries({ queryKey: ["conversations"] });
-
-            navigate(`/chat/${conversationId}`);
-            return;
-          }
+          const conversationId = state.messages[0].conversationId;
 
           queryClient.setQueryData(
-            ["messages", payload.conversationId],
+            ["messages", conversationId],
             (oldData: Message[]) => {
-              return [...oldData, ...state.messages];
+              return [...(oldData || []), ...state.messages];
             }
           );
 
           state.clearState();
+
+          if (!payload.conversationId) {
+            queryClient.invalidateQueries({ queryKey: ["conversations"] });
+
+            onNavigate(conversationId);
+          }
 
           resolve();
         },
@@ -85,11 +87,16 @@ const sendMessageApi = (payload: Payload, queryClient: QueryClient) => {
 
 export const useMessageForm = () => {
   const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const onNavigate = (conversationId: string) => {
+    router.push(`/chat/${conversationId}`);
+  };
 
   const { isPending, mutateAsync } = useMutation({
     mutationKey: ["sendQuery"],
     mutationFn: async (payload: Payload) => {
-      return sendMessageApi(payload, queryClient);
+      return sendMessageApi(payload, queryClient, onNavigate);
     },
     retry: 0,
   });
