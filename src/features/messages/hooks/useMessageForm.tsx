@@ -58,7 +58,12 @@ const sendMessageApi = (
         onCompleted: () => {
           const state = useActiveChat.getState();
 
-          if (state.messages.length === 0) return;
+          if (state.messages.length === 0) {
+            state.clearState();
+
+            return;
+          }
+
           const conversationId = state.messages[0].conversationId;
 
           queryClient.setQueryData(
