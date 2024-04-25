@@ -1,4 +1,5 @@
 import { useSidebar } from "@/hooks/useSidebar";
+import { cn } from "@/lib/utils";
 
 const CollapseButton = () => {
   const { isOpen, toggle } = useSidebar();
@@ -20,8 +21,20 @@ const CollapseButton = () => {
       <button onClick={toggle}>
         <div className="flex h-[72px] w-8 items-center justify-center">
           <div className="flex h-6 w-6 flex-col items-center">
-            <div className="h-3 w-1 rounded-full bg-gray-500 translate-y-[0.15rem] rotate-0 group-hover:rotate-[15deg]" />
-            <div className="h-3 w-1 bg-gray-500 rounded-full translate-y-[-0.15rem] rotate-0 group-hover:rotate-[-15deg]" />
+            <div
+              className={cn(
+                "h-3 w-1 rounded-full bg-gray-500",
+                "translate-y-[0.15rem] rotate-0 group-hover:rotate-[15deg]",
+                !isOpen && "group-hover:rotate-[-15deg]"
+              )}
+            />
+            <div
+              className={cn(
+                "h-3 w-1 bg-gray-500 rounded-full",
+                "translate-y-[-0.15rem] rotate-0 group-hover:rotate-[-15deg]",
+                !isOpen && "group-hover:rotate-[15deg]"
+              )}
+            />
           </div>
         </div>
       </button>
