@@ -28,36 +28,37 @@ const sendMessageApi = (
         },
       },
       {
-        onWorkflowStarted: (data) => {
-          const state = useActiveChat.getState();
-
-          state.addMessages(data.task_id, [
-            {
-              id: data.message_id + "w",
-              conversationId: data.conversation_id,
-              createdAt: data.data.created_at,
-              feedback: null,
-              role: "user",
-              content: payload.query,
-            },
-            {
-              id: data.message_id,
-              conversationId: data.conversation_id,
-              createdAt: data.data.created_at,
-              feedback: null,
-              role: "assistant",
-              content: "",
-            },
-          ]);
-        },
         onData: (message, isFirstMessage, moreInfo) => {
           const state = useActiveChat.getState();
+
+          if (isFirstMessage) {
+            state.addMessages(moreInfo.taskId!, [
+              {
+                id: moreInfo.messageId + "w",
+                conversationId: moreInfo.conversationId!,
+                createdAt: moreInfo.created_at,
+                feedback: null,
+                role: "user",
+                content: payload.query,
+              },
+              {
+                id: moreInfo.messageId,
+                conversationId: moreInfo.conversationId!,
+                createdAt: moreInfo.created_at,
+                feedback: null,
+                role: "assistant",
+                content: message,
+              },
+            ]);
+            return;
+          }
 
           state.updateMessage(moreInfo.messageId, message);
         },
         onCompleted: () => {
           const state = useActiveChat.getState();
 
+          if (state.messages.length === 0) return;
           const conversationId = state.messages[0].conversationId;
 
           queryClient.setQueryData(
