@@ -46,8 +46,17 @@ const MessageItem = (props: Props) => {
                   <MarkdownContent>{content}</MarkdownContent>
                 </div>
               </div>
-              <div className="flex items-center gap-2 empty:hidden mt-1">
-                <MessageActions isVisible={props.isLast} />
+              <div
+                className={cn(
+                  "flex items-center gap-2 empty:hidden mt-1",
+                  !isAssistant && "invisible"
+                )}
+              >
+                <MessageActions
+                  isAssistant={isAssistant}
+                  isVisible={props.isLast}
+                  text={content}
+                />
               </div>
             </div>
           </div>

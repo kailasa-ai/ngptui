@@ -1,8 +1,15 @@
-import { Clipboard, ThumbsUp, ThumbsDown } from "lucide-react";
+import CopyToClipBoard from "./actions/CopyToClipBoard";
+import FeedbackButton, { FeedbackType } from "./actions/FeedbackButton";
 
 import { cn } from "@/lib/utils";
 
-const MessageActions = ({ isVisible }: { isVisible: boolean }) => {
+type Props = {
+  isAssistant: boolean;
+  isVisible: boolean;
+  text: string;
+};
+
+const MessageActions = ({ isVisible, text, isAssistant }: Props) => {
   return (
     <div
       className={cn(
@@ -12,15 +19,23 @@ const MessageActions = ({ isVisible }: { isVisible: boolean }) => {
         isVisible && "visible"
       )}
     >
-      <button className="rounded-md p-1 text-xs text-gray-400 hover:text-gray-900">
-        <Clipboard size={18} />
-      </button>
-      <button className="rounded-md p-1 text-xs text-gray-400 hover:text-gray-900">
-        <ThumbsUp size={18} />
-      </button>
-      <button className="rounded-md p-1 text-xs text-gray-400 hover:text-gray-900">
-        <ThumbsDown size={18} />
-      </button>
+      {isAssistant && (
+        <>
+          <CopyToClipBoard text={text} />
+          <FeedbackButton
+            type={FeedbackType.GOOD}
+            onClick={() => {
+              console.log("Good Response");
+            }}
+          />
+          <FeedbackButton
+            type={FeedbackType.BAD}
+            onClick={() => {
+              console.log("Bad Response");
+            }}
+          />
+        </>
+      )}
     </div>
   );
 };
