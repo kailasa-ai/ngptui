@@ -1,59 +1,17 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 
 import MessagesList from "./MessagesList";
 import MessageForm from "./MessageForm";
 
-import { useActiveChat } from "./hooks/useActiveChat";
-
 import { cn } from "@/lib/utils";
-
-const debounce = (fn: () => void, delay: number) => {
-  let timeout: NodeJS.Timeout;
-
-  return () => {
-    clearTimeout(timeout);
-
-    timeout = setTimeout(() => {
-      fn();
-    }, delay);
-  };
-};
+import { useAutoScroll } from "./hooks/useAutoScroll";
 
 const MessagesPage = () => {
   const params = useParams<{ id?: string }>();
-  const listRef = useRef<HTMLDivElement>(null);
-  const debouncedScroll = useRef(
-    debounce(() => {
-      const element = listRef.current;
 
-      if (!element) return;
-
-      if (
-        element.scrollHeight - element.scrollTop < element.clientHeight ||
-        element.scrollHeight < element.clientHeight
-      ) {
-        return;
-      }
-
-      listRef.current?.scrollBy({
-        top: listRef.current.scrollHeight,
-        behavior: "smooth",
-      });
-    }, 100)
-  );
-
-  useEffect(() => {
-    const unsubscribe = useActiveChat.subscribe(() => {
-      debouncedScroll.current();
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  const { listRef } = useAutoScroll();
 
   return (
     <div
