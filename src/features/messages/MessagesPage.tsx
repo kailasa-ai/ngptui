@@ -4,16 +4,17 @@ import { useParams } from "next/navigation";
 
 import MessagesList from "./MessagesList";
 import MessageForm from "./MessageForm";
+import Header from "./components/Header";
 import CollapseButton from "./components/CollapseButton";
 
-import { cn } from "@/lib/utils";
 import { useAutoScroll } from "./hooks/useAutoScroll";
-import Header from "./components/Header";
+
+import { cn } from "@/lib/utils";
 
 const MessagesPage = () => {
   const params = useParams<{ id?: string }>();
 
-  const { listRef } = useAutoScroll();
+  const { listRef, visibilityRef } = useAutoScroll();
 
   return (
     <div
@@ -33,8 +34,9 @@ const MessagesPage = () => {
               >
                 <Header />
                 <MessagesList />
+
+                <div className="scroll-to-bottom" ref={visibilityRef}></div>
               </div>
-              <div className="scroll-to-bottom"></div>
             </div>
           </div>
           <div

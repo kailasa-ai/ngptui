@@ -1,9 +1,14 @@
-import { debounce } from "@/lib/utils";
 import { useEffect, useRef } from "react";
+
 import { useActiveChat } from "./useActiveChat";
+
+import { debounce } from "@/lib/utils";
 
 export const useAutoScroll = () => {
   const listRef = useRef<HTMLDivElement>(null);
+  const visibilityRef = useRef<HTMLDivElement>(null);
+  const cancelScrollRef = useRef<() => void>();
+  // const lastScrollTopRef = useRef(0);
 
   const debouncedScroll = useRef(
     debounce(() => {
@@ -18,24 +23,46 @@ export const useAutoScroll = () => {
         return;
       }
 
-      listRef.current?.scrollBy({
-        top: listRef.current.scrollHeight,
+      visibilityRef.current?.scrollIntoView({
         behavior: "smooth",
+        block: "end",
       });
     }, 100)
   );
 
   useEffect(() => {
-    const unsubscribe = useActiveChat.subscribe(() => {
+    // const element = listRef.current;
+
+    cancelScrollRef.current = useActiveChat.subscribe(() => {
       debouncedScroll.current();
     });
 
+    // const handleScroll = () => {
+    //   const element = listRef.current;
+    //   if (!element) return;
+
+    //   const currentScrollTop = element.scrollTop;
+
+    //   // if (currentScrollTop < lastScrollTopRef.current) {
+    //   //   cancelScrollRef.current?.();
+    //   //   listRef.current?.removeEventListener("scroll", handleScroll);
+    //   // }
+
+    //   lastScrollTopRef.current = currentScrollTop;
+    // };
+
+    // listRef.current?.addEventListener("scroll", handleScroll, {
+    //   passive: true,
+    // });
+
     return () => {
-      unsubscribe();
+      cancelScrollRef.current?.();
+      // element?.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return {
     listRef,
+    visibilityRef,
   };
 };
