@@ -12,7 +12,11 @@ const ActiveMessages = () => {
   const messages = useActiveChat((state) => state.messages);
 
   return messages.map((message) => (
-    <MessageItem key={message.id} message={message} />
+    <MessageItem
+      key={message.id}
+      message={message}
+      isLast={messages[messages.length - 1].id === message.id}
+    />
   ));
 };
 
@@ -29,7 +33,7 @@ const MessagesList = () => {
     );
   }
 
-  if (!params.id && !taskId) {
+  if (!params.id && !taskId && messages?.length === 0) {
     return (
       <div className="flex items-center justify-center h-1/2 text-xl">
         Start Chatting
@@ -40,7 +44,11 @@ const MessagesList = () => {
   return (
     <>
       {messages?.map((message) => (
-        <MessageItem key={message.id} message={message} />
+        <MessageItem
+          key={message.id}
+          message={message}
+          isLast={messages[messages.length - 1].id === message.id}
+        />
       ))}
       <ActiveMessages />
     </>

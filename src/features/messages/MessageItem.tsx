@@ -1,13 +1,15 @@
-import { PersonStanding } from "lucide-react";
 import Image from "next/image";
 
 import MessageActions from "./components/MessageActions";
+import MarkdownContent from "./components/MarkdownContent";
 
 import { cn } from "@/lib/utils";
+
 import { Message } from "@/types/chat";
 
 type Props = {
   message: Message;
+  isLast: boolean;
 };
 
 const MessageItem = (props: Props) => {
@@ -41,11 +43,11 @@ const MessageItem = (props: Props) => {
                   data-author-role="assistant"
                   data-message-id={id}
                 >
-                  {content}
+                  <MarkdownContent>{content}</MarkdownContent>
                 </div>
               </div>
               <div className="flex items-center gap-2 empty:hidden mt-1">
-                <MessageActions />
+                <MessageActions isVisible={props.isLast} />
               </div>
             </div>
           </div>
