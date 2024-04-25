@@ -8,14 +8,20 @@ const monthFormatter = new Intl.DateTimeFormat("en-US", {
   month: "long",
 });
 
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
 export const groupedConversationsBydate = (conversations: Conversation[]) => {
-  const currentYear = new Date().getFullYear();
-  const currentDay = new Date().getDay();
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
 
   return conversations.reduce((acc, value) => {
     const date = new Date(value.created_at * 1000);
 
-    if (date.getDay() === currentDay) {
+    if (dateFormatter.format(date) === dateFormatter.format(currentDate)) {
       acc["Today"] = acc["Today"] || [];
       acc["Today"].push(value);
 
