@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 
 import MessagesList from "./MessagesList";
 import MessageForm from "./MessageForm";
+import CollapseButton from "./components/CollapseButton";
 
 import { cn } from "@/lib/utils";
 import { useAutoScroll } from "./hooks/useAutoScroll";
@@ -21,6 +22,7 @@ const MessagesPage = () => {
       )}
     >
       <main className="relative h-full w-full flex-1 overflow-auto transition-width">
+        <CollapseButton />
         <div role="presentation" className="h-full flex flex-col">
           <div className="flex-1 overflow-hidden">
             <div className="h-full w-full">
