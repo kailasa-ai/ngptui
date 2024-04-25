@@ -1,3 +1,5 @@
+import { auth } from "@/auth";
+
 type Params = {
   params: {
     id: string;
@@ -5,7 +7,13 @@ type Params = {
 };
 
 export const GET = async (_: Request, { params }: Params) => {
-  const userId = "madhu";
+  const session = await auth();
+
+  if (!session || !session.user) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const userId = session.user?.id!;
 
   const searchParams = new URLSearchParams({
     user: userId,
@@ -28,7 +36,13 @@ export const GET = async (_: Request, { params }: Params) => {
 };
 
 export const DELETE = async (_: Request, { params }: Params) => {
-  const userId = "anandam";
+  const session = await auth();
+
+  if (!session || !session.user) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const userId = session.user?.id!;
 
   const response = await fetch(
     `${process.env.DIFY_URL}/conversations/${params.id}`,

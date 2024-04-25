@@ -1,10 +1,20 @@
+import { auth } from "@/auth";
+
 export const GET = async (req: Request) => {
-  const userId = "madhu";
+  const session = await auth();
+
+  if (!session || !session.user) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const userId = session.user?.id!;
+
   const url = new URL(req.url);
   const lastId = url.searchParams.get("lastId") || undefined;
+  const limit = url.searchParams.get("limit") || "20";
 
   const params = new URLSearchParams({
-    limit: "20",
+    limit: limit,
     user: userId,
   });
 

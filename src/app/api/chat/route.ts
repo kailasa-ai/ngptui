@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import { z } from "zod";
 
 const chatSchema = z.object({
@@ -6,6 +7,14 @@ const chatSchema = z.object({
 });
 
 export const POST = async (req: Request) => {
+  const session = await auth();
+
+  if (!session || !session.user) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const userId = session.user?.id!;
+
   const body = await req.json();
 
   const results = chatSchema.safeParse(body);
@@ -18,7 +27,7 @@ export const POST = async (req: Request) => {
     ...body,
     response_mode: "streaming",
     auto_generate_name: true,
-    user: "madhu",
+    user: userId,
     inputs: {},
   };
 
