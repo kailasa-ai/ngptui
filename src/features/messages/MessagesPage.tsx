@@ -8,6 +8,7 @@ import CollapseButton from "./components/CollapseButton";
 
 import { cn } from "@/lib/utils";
 import { useAutoScroll } from "./hooks/useAutoScroll";
+import Header from "./components/Header";
 
 const MessagesPage = () => {
   const params = useParams<{ id?: string }>();
@@ -30,9 +31,7 @@ const MessagesPage = () => {
                 ref={listRef}
                 className="h-full overflow-auto w-full text-sm pb-9"
               >
-                <header className="sticky top-0 mb-1.5 flex items-center justify-between z-10 h-14 p-2 font-semibold bg-white">
-                  <h2>Nithyananda GPT</h2>
-                </header>
+                <Header />
                 <MessagesList />
               </div>
               <div className="scroll-to-bottom"></div>
