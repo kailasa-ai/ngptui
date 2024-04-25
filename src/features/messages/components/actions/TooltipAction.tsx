@@ -19,7 +19,7 @@ const TooltipAction = (props: Props) => {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={800}>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <button
             className="rounded-md p-1 text-xs text-gray-400 hover:text-gray-900"
             aria-label={props.ariaLabel}
