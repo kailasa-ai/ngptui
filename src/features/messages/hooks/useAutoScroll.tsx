@@ -32,6 +32,7 @@ export const useAutoScroll = () => {
 
   useEffect(() => {
     // const element = listRef.current;
+    debouncedScroll.current();
 
     cancelScrollRef.current = useActiveChat.subscribe(() => {
       debouncedScroll.current();
