@@ -13,7 +13,7 @@ export const POST = async (req: Request) => {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const userId = session.user?.id!;
+  const userId = session.user?.email!;
 
   const body = await req.json();
 

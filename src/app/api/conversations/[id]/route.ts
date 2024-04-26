@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { decode, getToken } from "next-auth/jwt";
 
 type Params = {
   params: {
@@ -6,18 +7,19 @@ type Params = {
   };
 };
 
-export const GET = async (_: Request, { params }: Params) => {
+export const GET = async (req: Request, { params }: Params) => {
   const session = await auth();
 
   if (!session || !session.user) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const userId = session.user?.id!;
+  const userId = session.user?.email!;
 
   const searchParams = new URLSearchParams({
     user: userId,
     conversation_id: params.id,
+    limit: "30",
   });
 
   const response = await fetch(

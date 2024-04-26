@@ -7,11 +7,11 @@ export const GET = async (req: Request) => {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const userId = session.user?.id!;
+  const userId = session.user?.email!;
 
   const url = new URL(req.url);
   const lastId = url.searchParams.get("lastId") || undefined;
-  const limit = url.searchParams.get("limit") || "20";
+  const limit = url.searchParams.get("limit") || "30";
 
   const params = new URLSearchParams({
     limit: limit,
