@@ -40,6 +40,7 @@ const SpeechButton = (props: Props) => {
       tooltipText="Read Aloud"
       ariaLabel="Read message aloud"
       onClick={handleSpeech}
+      isActive={spechState !== "IDLE"}
     >
       {icon}
     </TooltipAction>
