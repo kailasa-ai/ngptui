@@ -3,14 +3,14 @@
 import React, { useState } from "react";
 import { Square, ArrowUp, Loader } from "lucide-react";
 
-import ChatInput from "@/features/messages/components/ChatInput";
+import IconButton from "./components/IconButton";
+import ChatInput from "./components/ChatInput";
 
 import { useMessageFormMutation } from "./queries/useMessageFormMutation";
-
-import { cn } from "@/lib/utils";
-import IconButton from "./components/IconButton";
 import { useStopMessageMutation } from "./queries/useStopMessageMutation";
 import { useActiveChat } from "./hooks/useActiveChat";
+
+import { cn } from "@/lib/utils";
 
 type Props = {
   conversationId?: string;
@@ -73,7 +73,7 @@ const MessageForm = (props: Props) => {
           </IconButton>
         )}
         {isPending && (
-          <IconButton>
+          <IconButton className="cursor-default">
             <Loader className="animate-spin" size={16} />
           </IconButton>
         )}
