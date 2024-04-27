@@ -9,6 +9,7 @@ export const useSpeechSynthesis = () => {
 
   const [selectedVoice] = useState(() => {
     const voices = synth.getVoices();
+
     return voices.find((voice) => voice.name === "Lekha") ?? voices[0];
   });
 
@@ -35,6 +36,10 @@ export const useSpeechSynthesis = () => {
 
       utterThis.addEventListener("pause", () => {
         setSpeechState("PAUSED");
+      });
+
+      utterThis.addEventListener("resume", () => {
+        setSpeechState("SPEAKING");
       });
 
       utterThis.voice = selectedVoice!;
