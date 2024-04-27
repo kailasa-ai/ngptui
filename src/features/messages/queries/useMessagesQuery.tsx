@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { Message, RawMessage } from "@/types/chat";
 
-export const useMessages = (conversationId?: string) => {
+export const useMessagesQuery = (conversationId?: string) => {
   const { data, isLoading } = useQuery<Message[]>({
     queryKey: ["messages", conversationId],
     queryFn: async () => {

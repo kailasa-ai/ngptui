@@ -3,12 +3,12 @@
 import { LoaderIcon } from "lucide-react";
 import ConversationItem from "./ConversationItem";
 
-import { useConversations } from "@/features/conversations/useConversations";
+import { useConversationsQuery } from "@/features/conversations/queries/useConversationsQuery";
 import { useCallback, useRef } from "react";
 
 const ConversationsList = () => {
   const { conversations, isLoading, fetchNextPage, hasNextPage, isFetching } =
-    useConversations();
+    useConversationsQuery();
   const observer = useRef<IntersectionObserver>();
 
   const lastElementRef = useCallback(

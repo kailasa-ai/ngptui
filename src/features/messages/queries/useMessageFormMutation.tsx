@@ -6,7 +6,7 @@ import {
 
 import { ssePost } from "@/lib/helpers";
 
-import { useActiveChat } from "./useActiveChat";
+import { useActiveChat } from "../hooks/useActiveChat";
 
 import { Message } from "@/types/chat";
 import { useRouter } from "next/navigation";
@@ -91,7 +91,7 @@ const sendMessageApi = (
   });
 };
 
-export const useMessageForm = () => {
+export const useMessageFormMutation = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 

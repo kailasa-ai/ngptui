@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { groupedConversationsBydate } from "./utils";
+import { groupedConversationsBydate } from "../utils";
 
 import { Conversation } from "@/types/chat";
 
@@ -32,7 +32,7 @@ const fetchConversations = async ({ lastId }: { lastId?: string }) => {
   };
 };
 
-export const useConversations = () => {
+export const useConversationsQuery = () => {
   const { data, isLoading, fetchNextPage, isFetching } = useInfiniteQuery<
     Page,
     Error

@@ -5,7 +5,7 @@ import { LoaderIcon } from "lucide-react";
 
 import MessageItem from "./MessageItem";
 
-import { useMessages } from "./hooks/useMessages";
+import { useMessagesQuery } from "./queries/useMessagesQuery";
 import { useActiveChat } from "./hooks/useActiveChat";
 
 const ActiveMessages = () => {
@@ -22,7 +22,7 @@ const ActiveMessages = () => {
 
 const MessagesList = () => {
   const params = useParams<{ id: string }>();
-  const { messages, isLoading } = useMessages(params.id);
+  const { messages, isLoading } = useMessagesQuery(params.id);
   const taskId = useActiveChat((state) => state.taskId);
 
   if (isLoading) {

@@ -5,7 +5,7 @@ import { Square, ArrowUp } from "lucide-react";
 
 import ChatInput from "@/features/messages/components/ChatInput";
 
-import { useMessageForm } from "./hooks/useMessageForm";
+import { useMessageFormMutation } from "./queries/useMessageFormMutation";
 
 import { cn } from "@/lib/utils";
 
@@ -45,7 +45,7 @@ const IconButton = ({
 };
 
 const MessageForm = (props: Props) => {
-  const { sendMessage, isPending } = useMessageForm();
+  const { sendMessage, isPending } = useMessageFormMutation();
 
   const [query, setQuery] = useState("");
 
