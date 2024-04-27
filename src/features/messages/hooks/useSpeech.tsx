@@ -10,7 +10,11 @@ export const useSpeechSynthesis = () => {
   const [selectedVoice] = useState(() => {
     const voices = synth.getVoices();
 
-    return voices.find((voice) => voice.name === "Lekha") ?? voices[0];
+    return (
+      voices.find((voice) => voice.name === "Lekha") ??
+      voices.find((voice) => voice.lang === "en-US" && voice.localService) ??
+      voices[0]
+    );
   });
 
   useEffect(() => {
