@@ -2,6 +2,7 @@ import { useRef } from "react";
 
 import FeedbackButton, { FeedbackType } from "./actions/FeedbackButton";
 import CopyToClipBoard from "./actions/CopyToClipBoard";
+import SpeechButton from "./actions/SpeechButton";
 
 import { useMessageFeedbackMutation } from "../queries/useMessageFeedbackMutation";
 
@@ -45,6 +46,7 @@ const MessageActions = ({
     >
       {isAssistant && (
         <>
+          <SpeechButton text={text} />
           <CopyToClipBoard text={text} />
           <FeedbackButton
             isLoading={isPending && pendingRef.current === "like"}
