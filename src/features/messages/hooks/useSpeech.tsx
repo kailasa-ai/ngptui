@@ -20,6 +20,8 @@ export const useSpeechSynthesis = () => {
 
   const speak = (text: string) => {
     try {
+      if (synth.speaking) synth.cancel();
+
       const utterThis = new SpeechSynthesisUtterance(text);
 
       utterThis.onend = function (event) {
@@ -27,7 +29,7 @@ export const useSpeechSynthesis = () => {
       };
 
       utterThis.onerror = function (event) {
-        console.error("SpeechSynthesisUtterance.onerror", event);
+        console.log("SpeechSynthesisUtterance.onerror", event);
         setSpeechState("IDLE");
       };
 
