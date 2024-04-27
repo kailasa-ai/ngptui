@@ -1,5 +1,6 @@
-import { auth } from "@/auth";
 import { z } from "zod";
+
+import { auth } from "@/auth";
 
 const chatSchema = z.object({
   query: z.string(),
@@ -15,16 +16,14 @@ export const POST = async (req: Request) => {
 
   const userId = session.user?.email!;
 
-  const body = await req.json();
+  const body = chatSchema.safeParse(await req.json());
 
-  const results = chatSchema.safeParse(body);
-
-  if (!results.success) {
-    return Response.json(results.error, { status: 400 });
+  if (!body.success) {
+    return Response.json(body.error, { status: 400 });
   }
 
   const payload = {
-    ...body,
+    ...body.data,
     response_mode: "streaming",
     auto_generate_name: true,
     user: userId,

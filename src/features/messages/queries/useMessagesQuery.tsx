@@ -39,6 +39,7 @@ export const useMessagesQuery = (conversationId?: string) => {
         ];
       });
     },
+    retry: 0,
   });
 
   return {
