@@ -19,6 +19,7 @@ export type RawMessage = {
   message_files: [];
   retriever_resources: [];
   status: "normal";
+  feedback: Feedbacktype | null;
 };
 
 export type Message = {

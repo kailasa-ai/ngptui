@@ -20,9 +20,9 @@ const IconButton = ({
   ariaLabel,
   rounded = false,
 }: {
-  disabled: boolean;
   children: React.ReactNode;
   onClick: (e: React.MouseEvent) => void;
+  disabled?: boolean;
   rounded?: boolean;
   ariaLabel?: string;
 }) => {
@@ -79,23 +79,33 @@ const MessageForm = (props: Props) => {
             }
           }}
         />
-        <IconButton
-          disabled={!query && !isPending}
-          rounded={isPending}
-          onClick={() => {
-            if (query) {
-              sendMessage({
-                query,
-                conversationId: props.conversationId,
-              });
+        {isPending ? (
+          <IconButton
+            disabled={!query && !isPending}
+            rounded={true}
+            onClick={() => {}}
+            ariaLabel="Stop message"
+          >
+            <Square size={16} />
+          </IconButton>
+        ) : (
+          <IconButton
+            disabled={!query && isPending}
+            onClick={() => {
+              if (query) {
+                sendMessage({
+                  query,
+                  conversationId: props.conversationId,
+                });
 
-              setQuery("");
-            }
-          }}
-          ariaLabel={isPending ? "Stop message" : "Send message"}
-        >
-          {isPending ? <Square size={16} /> : <ArrowUp size={18} />}
-        </IconButton>
+                setQuery("");
+              }
+            }}
+            ariaLabel="Send message"
+          >
+            <ArrowUp size={18} />
+          </IconButton>
+        )}
       </div>
     </form>
   );

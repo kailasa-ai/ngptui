@@ -53,9 +53,12 @@ const MessageItem = (props: Props) => {
                 )}
               >
                 <MessageActions
+                  messageId={id}
+                  text={content}
                   isAssistant={isAssistant}
                   isVisible={props.isLast}
-                  text={content}
+                  feedback={props.message.feedback}
+                  conversationId={props.message.conversationId}
                 />
               </div>
             </div>

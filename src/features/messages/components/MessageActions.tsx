@@ -1,15 +1,39 @@
-import CopyToClipBoard from "./actions/CopyToClipBoard";
+import { useRef } from "react";
+
 import FeedbackButton, { FeedbackType } from "./actions/FeedbackButton";
+import CopyToClipBoard from "./actions/CopyToClipBoard";
+
+import { useMessageFeedbackMutation } from "../queries/useMessageFeedbackMutation";
 
 import { cn } from "@/lib/utils";
 
+import { Feedbacktype } from "@/types/response";
+
 type Props = {
+  messageId: string;
+  conversationId: string;
+  text: string;
   isAssistant: boolean;
   isVisible: boolean;
-  text: string;
+  feedback?: Feedbacktype | null;
 };
 
-const MessageActions = ({ isVisible, text, isAssistant }: Props) => {
+const MessageActions = ({
+  isVisible,
+  text,
+  isAssistant,
+  messageId,
+  feedback,
+  conversationId,
+}: Props) => {
+  const pendingRef = useRef<null | "like" | "dislike">(null);
+  const { isPending, sendFeedback } = useMessageFeedbackMutation({
+    onSettled: () => {
+      pendingRef.current = null;
+    },
+    messageId,
+  });
+
   return (
     <div
       className={cn(
@@ -23,16 +47,30 @@ const MessageActions = ({ isVisible, text, isAssistant }: Props) => {
         <>
           <CopyToClipBoard text={text} />
           <FeedbackButton
+            isLoading={isPending && pendingRef.current === "like"}
             type={FeedbackType.GOOD}
             onClick={() => {
-              console.log("Good Response");
+              pendingRef.current = "like";
+              sendFeedback({
+                conversationId,
+                messageId,
+                like: feedback?.rating === "like" ? null : true,
+              });
             }}
+            isActive={feedback?.rating === "like"}
           />
           <FeedbackButton
+            isLoading={isPending && pendingRef.current === "dislike"}
             type={FeedbackType.BAD}
             onClick={() => {
-              console.log("Bad Response");
+              pendingRef.current = "dislike";
+              sendFeedback({
+                conversationId,
+                messageId,
+                like: feedback?.rating === "dislike" ? null : false,
+              });
             }}
+            isActive={feedback?.rating === "dislike"}
           />
         </>
       )}

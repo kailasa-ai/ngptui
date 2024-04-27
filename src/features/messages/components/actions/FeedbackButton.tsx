@@ -1,4 +1,4 @@
-import { ThumbsDown, ThumbsUp } from "lucide-react";
+import { Loader, ThumbsDown, ThumbsUp } from "lucide-react";
 
 import TooltipAction from "./TooltipAction";
 
@@ -8,13 +8,16 @@ export enum FeedbackType {
 }
 
 type Props = {
-  type: FeedbackType;
   onClick: () => void;
+  type: FeedbackType;
+  isActive?: boolean;
+  isLoading?: boolean;
 };
 
 const FeedbackButton = (props: Props) => {
   return (
     <TooltipAction
+      isActive={props.isActive}
       tooltipText={
         props.type === FeedbackType.GOOD ? "Good Response" : "Bad Response"
       }
@@ -22,8 +25,11 @@ const FeedbackButton = (props: Props) => {
         props.type === FeedbackType.GOOD ? "Good Response" : "Bad Response"
       }
       onClick={props.onClick}
+      disabled={props.isLoading}
     >
-      {props.type === FeedbackType.GOOD ? (
+      {props.isLoading ? (
+        <Loader size={18} />
+      ) : props.type === FeedbackType.GOOD ? (
         <ThumbsUp size={18} />
       ) : (
         <ThumbsDown size={18} />

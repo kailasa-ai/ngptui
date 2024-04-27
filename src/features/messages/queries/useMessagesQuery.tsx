@@ -34,6 +34,7 @@ export const useMessagesQuery = (conversationId?: string) => {
             ...temp,
             role: "assistant",
             content: message.answer,
+            feedback: message.feedback,
           },
         ];
       });

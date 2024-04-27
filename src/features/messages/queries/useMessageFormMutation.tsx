@@ -3,13 +3,13 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 import { ssePost } from "@/lib/helpers";
 
 import { useActiveChat } from "../hooks/useActiveChat";
 
 import { Message } from "@/types/chat";
-import { useRouter } from "next/navigation";
 
 type Payload = { query: string; conversationId?: string };
 
