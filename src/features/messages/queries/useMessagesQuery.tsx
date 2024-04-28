@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { Message, RawMessage } from "@/types/chat";
+import { toast } from "sonner";
 
 export const useMessagesQuery = (conversationId?: string) => {
   const { data, isLoading } = useQuery<Message[]>({
@@ -11,9 +12,8 @@ export const useMessagesQuery = (conversationId?: string) => {
       }
 
       const response = await fetch(`/api/conversations/${conversationId}`);
-      const { data } = (await response.json()) as {
-        data: RawMessage[];
-      };
+      const json = await response.json();
+      const data = json.data as RawMessage[];
 
       return data.flatMap((message) => {
         const temp = {
@@ -40,6 +40,11 @@ export const useMessagesQuery = (conversationId?: string) => {
       });
     },
     retry: 0,
+    throwOnError(error, _query) {
+      console.log(error);
+      toast.error("Failed to fetch messages");
+      return false;
+    },
   });
 
   return {
