@@ -6,7 +6,7 @@ import { Button } from "@/components/button";
 import { useSidebar } from "@/hooks/useSidebar";
 
 const Header = () => {
-  const { isOpen } = useSidebar();
+  const { isOpen, isCollapsed } = useSidebar();
   const router = useRouter();
 
   const onNewChat = () => {
@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 mb-1.5 flex items-center gap-4 z-10 h-14 py-2 px-4 font-semibold bg-white">
-      {!isOpen && (
+      {(!isOpen || isCollapsed) && (
         <Button variant="outline" size="icon" onClick={onNewChat}>
           <Edit size={18} />
         </Button>

@@ -1,8 +1,13 @@
 import { useSidebar } from "@/hooks/useSidebar";
+
 import { cn } from "@/lib/utils";
 
 const CollapseButton = () => {
-  const { isOpen, toggle } = useSidebar();
+  const { isOpen, toggle, isCollapsed } = useSidebar();
+
+  if (isCollapsed) {
+    return null;
+  }
 
   let transform =
     "translateX(260px) translateY(-50%) rotate(0deg) translateZ(0px)";
@@ -18,7 +23,7 @@ const CollapseButton = () => {
         transform,
       }}
     >
-      <button onClick={toggle}>
+      <button onClick={toggle.bind(null, !isOpen)}>
         <div className="flex h-[72px] w-8 items-center justify-center">
           <div className="flex h-6 w-6 flex-col items-center">
             <div
