@@ -79,7 +79,7 @@ const MessageForm = (props: Props) => {
         )}
         {!isPending && !isSuccess && (
           <IconButton
-            disabled={!query && isPending}
+            disabled={!query || isPending}
             onClick={() => {
               if (query) {
                 sendMessage({
