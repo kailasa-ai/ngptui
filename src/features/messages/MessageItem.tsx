@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 import MessageActions from "./components/MessageActions";
@@ -16,7 +18,7 @@ const MessageItem = (props: Props) => {
   const { role, content, id } = props.message;
 
   const isAssistant = role === "assistant";
-  const title = isAssistant ? "NithyanandaGPT" : "You";
+  const title = isAssistant ? "Ask Nithyananda" : "You";
 
   return (
     <div className="w-full text-gray-900 group">

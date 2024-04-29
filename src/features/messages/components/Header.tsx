@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { Edit } from "lucide-react";
+import { Edit, Menu } from "lucide-react";
 
 import { Button } from "@/components/button";
 
@@ -20,7 +20,7 @@ const Header = () => {
           <Edit size={18} />
         </Button>
       )}
-      <h2>Nithyananda GPT</h2>
+      <h2 className="text-lg font-medium">Ask Nithyananda</h2>
     </header>
   );
 };

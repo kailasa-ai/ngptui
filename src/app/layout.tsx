@@ -9,7 +9,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Nithyananda GPT",
+  title: "Ask Nithyananda",
   description: "Learn the teachings of SPH Nithyananda through AI",
   icons: {
     icon: "/favicon.ico",
