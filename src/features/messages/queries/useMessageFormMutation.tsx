@@ -4,6 +4,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { nanoid } from "nanoid";
 
 import { ssePost } from "@/lib/helpers";
 
@@ -24,6 +25,19 @@ const sendMessageApi = async ({
   onNavigate: (conversationId: string) => void;
   onCompleted: () => void;
 }) => {
+  const state = useActiveChat.getState();
+
+  state.setMessages("", [
+    {
+      id: nanoid(),
+      conversationId: "",
+      createdAt: Date.now() / 1000,
+      feedback: null,
+      role: "user",
+      content: payload.query,
+    },
+  ]);
+
   return await ssePost(
     "/api/chat",
     {
@@ -37,7 +51,7 @@ const sendMessageApi = async ({
         const state = useActiveChat.getState();
 
         if (isFirstMessage) {
-          state.addMessages(moreInfo.taskId!, [
+          state.setMessages(moreInfo.taskId!, [
             {
               id: moreInfo.messageId + "w",
               conversationId: moreInfo.conversationId!,

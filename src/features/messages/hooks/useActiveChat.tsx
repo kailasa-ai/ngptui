@@ -4,7 +4,7 @@ import { create } from "zustand";
 type CurrentMessage = {
   messages: Message[];
   taskId: string | null;
-  addMessages: (taskId: string, message: Message[]) => void;
+  setMessages: (taskId: string, messages: Message[]) => void;
   updateMessage: (id: string, content: string) => void;
   clearState: () => void;
 };
@@ -12,15 +12,15 @@ type CurrentMessage = {
 export const useActiveChat = create<CurrentMessage>((set) => ({
   messages: [],
   taskId: null,
-  addMessages: (taskId: string, message: Message[]) => {
-    set((state) => ({ messages: [...state.messages, ...message], taskId }));
-  },
   updateMessage: (id: string, content: string) => {
     set((state) => ({
       messages: state.messages.map((msg) =>
         msg.id === id ? { ...msg, content: msg.content + content } : msg
       ),
     }));
+  },
+  setMessages: (taskId: string, messages: Message[]) => {
+    set({ messages, taskId });
   },
   clearState: () => {
     set({ messages: [], taskId: null });
