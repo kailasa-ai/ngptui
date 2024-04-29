@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 const MenuButton = () => {
   return (
     <DialogPrimitive.Dialog>
-      <DialogPrimitive.DialogTrigger>
+      <DialogPrimitive.DialogTrigger asChild={true}>
         <button
           type="button"
           className={cn(
@@ -27,8 +27,9 @@ const MenuButton = () => {
         className={cn(
           "fixed left-0 top-0 bottom-0 z-50 grid w-full max-w-lg h-full",
           "gap-4 bg-transparent duration-200",
-          "data-[state=closed]:slide-out-to-left-0",
-          "data-[state=open]:slide-in-from-left-0"
+          "data-[state=closed]:slide-out-to-left-[0%]",
+          "data-[state=open]:slide-in-from-left-[0%]",
+          "data-[state=open]:animate-in data-[state=closed]:animate-out"
         )}
       >
         <Drawer>
@@ -58,7 +59,7 @@ export const MobileHeader = () => {
   };
 
   return (
-    <div className="sticky top-0 py-2 z-10 flex min-h-[40px] items-center justify-center border-b pl-1">
+    <div className="sticky top-0 py-4 z-10 flex min-h-[40px] items-center justify-center border-b pl-1">
       <MenuButton />
 
       <div>Ask Nithyananda</div>

@@ -6,7 +6,7 @@ import NewChatButton from "@/features/conversations/NewChatButton";
 import { useSidebar } from "@/hooks/useSidebar";
 
 const Sidebar = () => {
-  const { isOpen, toggle } = useSidebar();
+  const { isOpen } = useSidebar();
 
   return (
     <div

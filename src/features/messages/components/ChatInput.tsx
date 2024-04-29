@@ -15,8 +15,8 @@ const ChatInput = (props: Props) => {
       className={cn(
         "resize-none border border-gray-400 rounded-lg outline-none h-[52px]",
         "m-0 w-full resize-none border-0 bg-transparent focus:ring-0",
-        "focus-visible:ring-0 dark:bg-transparent py-[10px] pr-10",
-        "md:py-3.5 md:pr-12 max-h-[25dvh] max-h-52 h-[52px] placeholder-black/50 dark:placeholder-white/50 pl-4 md:pl-6"
+        "focus-visible:ring-0 dark:bg-transparent pr-10",
+        "py-3.5 md:pr-12 max-h-[25dvh] max-h-52 h-[52px] placeholder-black/50 dark:placeholder-white/50 pl-4 md:pl-6"
       )}
       placeholder="Just Ask Nithyananda..."
       onChange={props.onChange}
