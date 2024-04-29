@@ -92,12 +92,16 @@ const sendMessageApi = async ({
           }
         );
 
-        state.clearState();
-
         if (!payload.conversationId) {
           queryClient.invalidateQueries({ queryKey: ["conversations"] });
 
           onNavigate(conversationId);
+          // clear state after 100ms
+          setTimeout(() => {
+            state.clearState();
+          }, 100);
+        } else {
+          state.clearState();
         }
 
         onCompleted();

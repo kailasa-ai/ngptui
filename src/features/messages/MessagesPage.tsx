@@ -45,7 +45,7 @@ const MessagesPage = () => {
           </div>
           <div
             className={cn(
-              "w-full pt-2 md:pt-0 dark:border-white/20",
+              "w-full md:pt-0 dark:border-white/20",
               "md:border-transparent md:dark:border-transparent md:w-[calc(100%-1rem)]"
             )}
           >

@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { LoaderIcon } from "lucide-react";
 
+import EmptyMessages from "./EmptyMessages";
 import MessageItem from "./MessageItem";
 
 import { useMessagesQuery } from "./queries/useMessagesQuery";
@@ -23,20 +24,11 @@ const ActiveMessages = () => {
 const MessagesList = () => {
   const params = useParams<{ id: string }>();
   const { messages, isLoading } = useMessagesQuery(params.id);
-  const taskId = useActiveChat((state) => state.taskId);
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-[60vh] w-full">
         <LoaderIcon className="animate-spin" />
-      </div>
-    );
-  }
-
-  if (!params.id && !taskId && messages?.length === 0) {
-    return (
-      <div className="flex items-center justify-center h-1/2 text-xl">
-        Start Chatting
       </div>
     );
   }
@@ -50,6 +42,7 @@ const MessagesList = () => {
           isLast={messages[messages.length - 1].id === message.id}
         />
       ))}
+      <EmptyMessages conversationId={params.id} />
       <ActiveMessages />
     </>
   );
