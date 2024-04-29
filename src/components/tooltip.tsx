@@ -19,7 +19,7 @@ const TooltipContent = React.forwardRef<
     ref={ref}
     sideOffset={sideOffset}
     className={cn(
-      "z-50 overflow-hidden rounded-md bg-popover px-3 py-1.5 text-sm text-popover-foreground",
+      "z-50 overflow-hidden rounded-md bg-tooltip px-3 py-1.5 text-sm text-tooltip-foreground",
       "shadow-md",
       className
     )}
@@ -28,7 +28,16 @@ const TooltipContent = React.forwardRef<
 ));
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
-const TooltipArrow = TooltipPrimitive.Arrow;
+const TooltipArrow = React.forwardRef<
+  React.ElementRef<typeof TooltipPrimitive.Arrow>,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Arrow>
+>((props, ref) => (
+  <TooltipPrimitive.Arrow
+    ref={ref}
+    className={cn(["border-tooltip", props.className])}
+    {...props}
+  />
+));
 
 TooltipArrow.displayName = TooltipPrimitive.Arrow.displayName;
 
