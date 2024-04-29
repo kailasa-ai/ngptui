@@ -1,10 +1,17 @@
 import Link from "next/link";
 import { MoreHorizontal } from "lucide-react";
+import { usePathname } from "next/navigation";
 
-import { cn } from "@/lib/utils";
+import { capitalize, cn } from "@/lib/utils";
 
 import { Conversation } from "@/types/chat";
-import { usePathname } from "next/navigation";
+import {
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/tooltip";
 
 type Props = {
   conversation: Conversation;
@@ -27,7 +34,7 @@ const ConversationItem = (props: Props) => {
       >
         <Link href={link} className={cn("flex items-center gap-2 p-2")}>
           <div className="relative grow overflow-hidden whitespace-nowrap">
-            {props.conversation.name}
+            {capitalize(props.conversation.name)}
             <div
               className={cn(
                 "absolute bottom-0 right-0 top-0",
@@ -47,10 +54,21 @@ const ConversationItem = (props: Props) => {
           <button
             className={cn(
               "flex items-center justify-center text-gray-950  hover:text-gray-500",
-              "transition radix-state-open:text-gray-500"
+              "transition data-[state=open]:text-gray-500 outline-none"
             )}
+            aria-label="More"
           >
-            <MoreHorizontal size={20} />
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <MoreHorizontal size={20} />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <TooltipArrow />
+                  <span>More</span>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </button>
         </div>
       </div>
