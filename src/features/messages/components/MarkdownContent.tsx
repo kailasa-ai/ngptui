@@ -10,10 +10,14 @@ const MarkdownContent = ({ children }: Props) => {
     <Markdown
       components={{
         ol: ({ children }) => (
-          <ol className="list-decimal list-inside">{children}</ol>
+          <ol className="list-decimal list-inside list flex flex-col gap-3">
+            {children}
+          </ol>
         ),
         ul: ({ children }) => (
-          <ul className="list-disc list-inside">{children}</ul>
+          <ul className="list-disc list-inside list flex flex-col gap-3">
+            {children}
+          </ul>
         ),
         a: ({ node, ...props }) => (
           <a
@@ -23,6 +27,7 @@ const MarkdownContent = ({ children }: Props) => {
             rel="noreferrer"
           />
         ),
+        li: ({ children }) => <li className="inline-flex">{children}</li>,
       }}
       remarkPlugins={[remarkGfm]}
     >
