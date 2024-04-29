@@ -18,7 +18,7 @@ const MarkdownContent = ({ children }: Props) => {
         a: ({ node, ...props }) => (
           <a
             {...props}
-            className="text-blue-500 underline"
+            className="text-blue-500 underline break-all"
             target="_blank"
             rel="noreferrer"
           />
