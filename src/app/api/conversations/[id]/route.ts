@@ -34,7 +34,13 @@ export const GET = async (req: Request, { params }: Params) => {
 
   const data = await response.json();
 
-  return Response.json(data);
+  if (response.status === 404) {
+    return Response.json({ error: "Conversation not found" }, { status: 404 });
+  }
+
+  return Response.json(data, {
+    status: response.status,
+  });
 };
 
 export const DELETE = async (_: Request, { params }: Params) => {
