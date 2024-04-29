@@ -13,6 +13,7 @@ import { Atom, User } from "lucide-react";
 type Props = {
   message: Message;
   isLast: boolean;
+  isStreaming?: boolean;
 };
 
 const MessageItem = (props: Props) => {
@@ -49,7 +50,7 @@ const MessageItem = (props: Props) => {
               <div
                 className={cn(
                   "flex items-center gap-2 empty:hidden mt-1",
-                  !isAssistant && "invisible"
+                  (!isAssistant || props.isStreaming) && "invisible"
                 )}
               >
                 <MessageActions

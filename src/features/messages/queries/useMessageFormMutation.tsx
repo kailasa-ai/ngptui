@@ -30,11 +30,19 @@ const sendMessageApi = async ({
   state.setMessages("", [
     {
       id: nanoid(),
-      conversationId: "",
+      conversationId: payload.conversationId || "",
       createdAt: Date.now() / 1000,
       feedback: null,
       role: "user",
       content: payload.query,
+    },
+    {
+      id: nanoid(),
+      conversationId: payload.conversationId || "",
+      createdAt: Date.now() / 1000,
+      feedback: null,
+      role: "assistant",
+      content: "",
     },
   ]);
 

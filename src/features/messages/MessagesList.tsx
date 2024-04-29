@@ -17,6 +17,7 @@ const ActiveMessages = () => {
       key={message.id}
       message={message}
       isLast={messages[messages.length - 1].id === message.id}
+      isStreaming={true}
     />
   ));
 };
