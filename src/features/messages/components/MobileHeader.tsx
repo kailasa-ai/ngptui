@@ -1,5 +1,8 @@
+"use client";
+
 import { Edit, Menu } from "lucide-react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { useRouter } from "next/navigation";
 
 import Sidebar from "@/app/(home)/_sidebar";
 
@@ -48,13 +51,19 @@ function Drawer({ children }: any) {
 }
 
 export const MobileHeader = () => {
+  const router = useRouter();
+
+  const onNewChat = () => {
+    router.push("/");
+  };
+
   return (
     <div className="sticky top-0 py-2 z-10 flex min-h-[40px] items-center justify-center border-b pl-1">
       <MenuButton />
 
       <div>Ask Nithyananda</div>
       <div className="absolute bottom-0 right-0 top-0 flex items-center">
-        <button type="button" className="px-3">
+        <button type="button" className="px-3" onClick={onNewChat}>
           <Edit size={18} />
         </button>
       </div>

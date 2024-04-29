@@ -1,5 +1,7 @@
+"use client";
+
 import { useRouter } from "next/navigation";
-import { Edit, Menu } from "lucide-react";
+import { Edit } from "lucide-react";
 
 import { Button } from "@/components/button";
 
