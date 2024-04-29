@@ -8,6 +8,7 @@ import MarkdownContent from "./components/MarkdownContent";
 import { cn } from "@/lib/utils";
 
 import { Message } from "@/types/chat";
+import { Atom, User } from "lucide-react";
 
 type Props = {
   message: Message;
@@ -19,19 +20,16 @@ const MessageItem = (props: Props) => {
 
   const isAssistant = role === "assistant";
   const title = isAssistant ? "Ask Nithyananda" : "You";
+  const icon = isAssistant ? <Atom size={24} /> : <User size={24} />;
 
   return (
     <div className="w-full text-gray-900 group">
       <div className="px-4 py-2 m-auto md:gap-6 text-base">
         <div className="flex flex-1 text-base mx-auto gap-3 md:px-5 lg:px-1 xl:px-5 md:max-w-3xl lg:max-w-[40rem] xl:max-w-[48rem]">
-          <div className="h-8 w-8">
-            <Image
-              alt="logo"
-              src="/ai.png"
-              width={28}
-              height={28}
-              className="object-cove rounded-full"
-            />
+          <div className="h-6 w-6 outline outline-1 rounded-full">
+            <div className="relative p-1 flex items-center justify-center h-6 w-6">
+              {icon}
+            </div>
           </div>
           <div className="relative flex w-full flex-col">
             <div className="font-semibold select-none">{title}</div>

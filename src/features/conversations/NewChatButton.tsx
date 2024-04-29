@@ -1,4 +1,4 @@
-import { Edit, ChefHatIcon } from "lucide-react";
+import { Edit, Atom } from "lucide-react";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
@@ -17,7 +17,7 @@ const NewChatButton = () => {
       >
         <div className="h-7 w-7 flex-shrink-0">
           <div className="relative flex h-full items-center justify-center rounded-full">
-            <ChefHatIcon />
+            <Atom />
           </div>
         </div>
         <div className="grow overflow-hidden text-ellipsis whitespace-nowrap text-sm">
