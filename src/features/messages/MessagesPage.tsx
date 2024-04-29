@@ -6,8 +6,10 @@ import MessagesList from "./MessagesList";
 import MessageForm from "./MessageForm";
 import Header from "./components/Header";
 import CollapseButton from "./components/CollapseButton";
+import { MobileHeader } from "./components/MobileHeader";
 
 import { useAutoScroll } from "./hooks/useAutoScroll";
+import { useSidebar } from "@/hooks/useSidebar";
 
 import { cn } from "@/lib/utils";
 
@@ -15,6 +17,7 @@ const MessagesPage = () => {
   const params = useParams<{ id?: string }>();
 
   const { listRef, visibilityRef } = useAutoScroll();
+  const { isCollapsed } = useSidebar();
 
   return (
     <div
@@ -23,6 +26,7 @@ const MessagesPage = () => {
         "flex flex-col flex-1"
       )}
     >
+      {isCollapsed && <MobileHeader />}
       <main className="relative h-full w-full flex-1 overflow-auto transition-width">
         <CollapseButton />
         <div role="presentation" className="h-full flex flex-col">
@@ -32,7 +36,7 @@ const MessagesPage = () => {
                 ref={listRef}
                 className="h-full overflow-auto w-full text-sm pb-9"
               >
-                <Header />
+                {!isCollapsed && <Header />}
                 <MessagesList />
 
                 <div className="scroll-to-bottom" ref={visibilityRef}></div>
