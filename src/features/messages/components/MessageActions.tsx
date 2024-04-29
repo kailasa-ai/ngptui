@@ -41,9 +41,7 @@ const MessageActions = ({
     <div
       className={cn(
         "text-gray-400 h-8 gap-0.5 w-full",
-        "flex self-end lg:self-center items-center justify-start",
-        "invisible group-hover:visible",
-        isVisible && "visible"
+        "flex self-end lg:self-center items-center justify-start"
       )}
     >
       {isAssistant && (

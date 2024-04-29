@@ -49,8 +49,10 @@ const MessageItem = (props: Props) => {
               </div>
               <div
                 className={cn(
-                  "flex items-center gap-2 empty:hidden mt-1",
-                  (!isAssistant || props.isStreaming) && "invisible"
+                  "flex items-center gap-2 empty:hidden mt-1 invisible",
+                  (!isAssistant || props.isStreaming) && "invisible",
+                  !props.isStreaming && "group-hover:visible",
+                  props.isLast && !props.isStreaming && "visible"
                 )}
               >
                 <MessageActions
