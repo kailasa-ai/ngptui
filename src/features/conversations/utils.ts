@@ -16,14 +16,30 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
 
 export const groupedConversationsBydate = (conversations: Conversation[]) => {
   const currentDate = new Date();
+  const yesterday = new Date(currentDate).setDate(currentDate.getDate() - 1);
   const currentYear = currentDate.getFullYear();
 
   return conversations.reduce((acc, value) => {
     const date = new Date(value.created_at * 1000);
+    const dayFormat = dateFormatter.format(date);
 
-    if (dateFormatter.format(date) === dateFormatter.format(currentDate)) {
+    if (dayFormat === dateFormatter.format(currentDate)) {
       acc["Today"] = acc["Today"] || [];
       acc["Today"].push(value);
+
+      return acc;
+    }
+
+    if (dayFormat === dateFormatter.format(yesterday)) {
+      acc["Yesterday"] = acc["Yesterday"] || [];
+      acc["Yesterday"].push(value);
+
+      return acc;
+    }
+
+    if (((currentDate as any) - (date as any)) / (3600 * 24 * 1000) < 7) {
+      acc["Previous 7 Days"] = acc["Previous 7 Days"] || [];
+      acc["Previous 7 Days"].push(value);
 
       return acc;
     }
