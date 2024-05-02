@@ -7,7 +7,7 @@ import { Conversation } from "@/types/chat";
 
 type GroupConversationType = ReturnType<typeof groupedConversationsBydate>;
 
-interface Page {
+export interface Page {
   data: Conversation[];
   hasMore: boolean;
   previousCursor?: string;
@@ -45,6 +45,8 @@ export const useConversationsQuery = () => {
     initialPageParam: undefined,
     retry: 0,
   });
+
+  console.log(data);
 
   const conversations = useMemo(() => {
     if (!data) {

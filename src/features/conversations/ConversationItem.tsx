@@ -1,10 +1,8 @@
+import { useState } from "react";
 import Link from "next/link";
 import { MoreHorizontal } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-import { capitalize, cn } from "@/lib/utils";
-
-import { Conversation } from "@/types/chat";
 import {
   Tooltip,
   TooltipArrow,
@@ -12,6 +10,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/tooltip";
+import ConversationActions from "./components/ConversationActions";
+import DeleteDialog from "./components/DeleteDialog";
+
+import { useChatDeleteQuery } from "./queries/useChatDeleteQuery";
+
+import { capitalize, cn } from "@/lib/utils";
+
+import { Conversation } from "@/types/chat";
 
 type Props = {
   conversation: Conversation;
@@ -19,6 +25,8 @@ type Props = {
 
 const ConversationItem = (props: Props) => {
   const pathname = usePathname();
+  const [action, setAction] = useState<"RENAME" | "DELETE" | null>(null);
+  const { deleteChat } = useChatDeleteQuery(props.conversation.id);
 
   const link = `/chat/${props.conversation.id}`;
   const isActive = pathname === link;
@@ -45,32 +53,45 @@ const ConversationItem = (props: Props) => {
             ></div>
           </div>
         </Link>
-        <div
-          className={cn(
-            "absolute right-0 top-0 bottom-0 gap-2 pr-2 hidden group-hover:flex",
-            isActive && "flex"
-          )}
-        >
-          <button
+        <ConversationActions onClick={setAction}>
+          <div
             className={cn(
-              "flex items-center justify-center text-gray-950  hover:text-gray-500",
-              "transition data-[state=open]:text-gray-500 outline-none"
+              "absolute right-0 top-0 bottom-0 gap-2 pr-2 invisible flex group-hover:visible",
+              isActive && "visible",
+              "data-[state=open]:visible"
             )}
-            aria-label="More"
           >
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <MoreHorizontal size={20} />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <TooltipArrow />
-                  <span>More</span>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </button>
-        </div>
+            <button
+              className={cn(
+                "flex items-center justify-center text-gray-950  hover:text-gray-500",
+                "transition data-[state=open]:text-gray-500 outline-none"
+              )}
+              aria-label="More"
+            >
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <MoreHorizontal size={20} />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <TooltipArrow />
+                    <span>More</span>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </button>
+          </div>
+        </ConversationActions>
+        {action === "DELETE" && (
+          <DeleteDialog
+            onCancel={() => setAction(null)}
+            onConfirm={() => {
+              console.log("Deleted");
+              deleteChat();
+            }}
+            onOpenChange={() => setAction(null)}
+          />
+        )}
       </div>
     </li>
   );

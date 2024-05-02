@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-import { decode, getToken } from "next-auth/jwt";
 
 type Params = {
   params: {
@@ -50,7 +49,7 @@ export const DELETE = async (_: Request, { params }: Params) => {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const userId = session.user?.id!;
+  const userId = session.user?.email!;
 
   const response = await fetch(
     `${process.env.DIFY_URL}/conversations/${params.id}`,
@@ -66,5 +65,10 @@ export const DELETE = async (_: Request, { params }: Params) => {
     }
   );
 
-  return Response.json(await response.json());
+  const data =
+    response.status === 204
+      ? { result: "success", code: 200 }
+      : { result: "failed", code: 400 };
+
+  return Response.json(data);
 };
