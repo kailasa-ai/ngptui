@@ -6,10 +6,12 @@ import { Edit } from "lucide-react";
 import { Button } from "@/components/button";
 
 import { useSidebar } from "@/hooks/useSidebar";
+import useDevice from "@/hooks/useDevice";
 
 const Header = () => {
-  const { isOpen, isCollapsed } = useSidebar();
+  const { isCollapsed } = useSidebar();
   const router = useRouter();
+  const { isMobile } = useDevice();
 
   const onNewChat = () => {
     router.push("/");
@@ -17,7 +19,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 mb-1.5 flex items-center gap-4 z-10 h-14 py-2 px-4 font-semibold bg-white">
-      {(!isOpen || isCollapsed) && (
+      {isCollapsed && !isMobile && (
         <Button variant="outline" size="icon" onClick={onNewChat}>
           <Edit size={18} />
         </Button>

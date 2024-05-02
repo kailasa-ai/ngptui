@@ -10,6 +10,7 @@ import { MobileHeader } from "./components/MobileHeader";
 
 import { useAutoScroll } from "./hooks/useAutoScroll";
 import { useSidebar } from "@/hooks/useSidebar";
+import useDevice from "@/hooks/useDevice";
 
 import { cn } from "@/lib/utils";
 
@@ -19,6 +20,8 @@ const MessagesPage = () => {
   const { listRef, visibilityRef } = useAutoScroll();
   const { isCollapsed } = useSidebar();
 
+  const { isMobile } = useDevice();
+
   return (
     <div
       className={cn(
@@ -26,17 +29,17 @@ const MessagesPage = () => {
         "flex flex-col flex-1"
       )}
     >
-      {isCollapsed && <MobileHeader />}
+      {isMobile && <MobileHeader />}
       <main className="relative h-full w-full flex-1 overflow-auto transition-width">
-        <CollapseButton />
+        {!isMobile && <CollapseButton />}
         <div role="presentation" className="h-full flex flex-col">
           <div className="flex-1 overflow-hidden">
             <div className="h-full w-full">
               <div
                 ref={listRef}
-                className="h-full overflow-auto w-full text-sm pb-9"
+                className="h-full overflow-auto w-full text-sm pb-9 scroll-smooth"
               >
-                {!isCollapsed && <Header />}
+                {!isMobile && <Header />}
                 <MessagesList />
 
                 <div className="scroll-to-bottom" ref={visibilityRef}></div>

@@ -1,38 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import dynamic from "next/dynamic";
 
-import Sidebar from "./_sidebar";
-
-import { useSidebar } from "@/hooks/useSidebar";
+const HomeLayout = dynamic(() => import("./_homelayout"), {
+  ssr: false,
+});
 
 const HomePageLayout = ({ children }: React.PropsWithChildren) => {
-  const { isCollapsed, toggleCollapsed } = useSidebar();
-
-  useEffect(() => {
-    let observer = new ResizeObserver((entries) => {
-      const entry = entries[0];
-
-      if (entry.contentRect.width <= 768) {
-        if (!isCollapsed) toggleCollapsed(true);
-      } else {
-        if (isCollapsed) toggleCollapsed(false);
-      }
-    });
-
-    observer.observe(document.body, { box: "border-box" });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [isCollapsed]);
-
-  return (
-    <div className="h-full flex w-full overflow-hidden relative">
-      {!isCollapsed && <Sidebar />}
-      {children}
-    </div>
-  );
+  return <HomeLayout>{children}</HomeLayout>;
 };
 
 export default HomePageLayout;
