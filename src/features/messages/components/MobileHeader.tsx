@@ -5,9 +5,9 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { useRouter } from "next/navigation";
 
 import Sidebar from "@/app/(home)/_sidebar";
+import { DialogPortal, DialogTrigger } from "@/components/dialog";
 
 import { cn } from "@/lib/utils";
-import { DialogPortal, DialogTrigger } from "@/components/dialog";
 
 const MenuButton = () => {
   return (
@@ -60,7 +60,7 @@ export const MobileHeader = () => {
     <div className="sticky top-0 py-4 z-10 flex min-h-[40px] items-center justify-center border-b pl-1">
       <MenuButton />
 
-      <div>Ask Nithyananda</div>
+      <div className="font-medium text-base">Ask Nithyananda</div>
       <div className="absolute bottom-0 right-0 top-0 flex items-center">
         <button type="button" className="px-3" onClick={onNewChat}>
           <Edit size={18} />
