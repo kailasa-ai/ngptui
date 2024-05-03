@@ -6,7 +6,7 @@ type Params = {
   };
 };
 
-export const POST = async (req: Request, { params }: Params) => {
+export const PATCH = async (req: Request, { params }: Params) => {
   const session = await auth();
 
   if (!session || !session.user) {

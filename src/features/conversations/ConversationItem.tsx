@@ -18,6 +18,8 @@ import { useChatDeleteQuery } from "./queries/useChatDeleteQuery";
 import { capitalize, cn } from "@/lib/utils";
 
 import { Conversation } from "@/types/chat";
+import RenameDialog from "./components/RenameDialog";
+import { useChatRenameMutation } from "./queries/useChatRenameMutation";
 
 type Props = {
   conversation: Conversation;
@@ -27,6 +29,7 @@ const ConversationItem = (props: Props) => {
   const pathname = usePathname();
   const [action, setAction] = useState<"RENAME" | "DELETE" | null>(null);
   const { deleteChat } = useChatDeleteQuery(props.conversation.id);
+  const { renameConversation } = useChatRenameMutation(props.conversation.id);
 
   const link = `/chat/${props.conversation.id}`;
   const isActive = pathname === link;
@@ -81,7 +84,13 @@ const ConversationItem = (props: Props) => {
           <DeleteDialog
             onCancel={() => setAction(null)}
             onConfirm={deleteChat}
-            onOpenChange={() => setAction(null)}
+          />
+        )}
+        {action === "RENAME" && (
+          <RenameDialog
+            onCancel={() => setAction(null)}
+            onRename={renameConversation}
+            name={props.conversation.name}
           />
         )}
       </div>

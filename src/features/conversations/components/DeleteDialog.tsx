@@ -7,18 +7,16 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/alert-dialog";
 
 type Props = {
   onConfirm: () => void;
   onCancel: () => void;
-  onOpenChange: (open: boolean) => void;
 };
 
 const DeleteDialog = (props: Props) => {
   return (
-    <AlertDialog defaultOpen={true} onOpenChange={props.onOpenChange}>
+    <AlertDialog defaultOpen={true} onOpenChange={props.onCancel}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>

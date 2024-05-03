@@ -14,7 +14,7 @@ const CollapseButton = () => {
 
   return (
     <div
-      className="fixed left-0 top-1/2 z-10 group"
+      className="fixed left-0 top-1/2 z-10 group transition-transform duration-300"
       style={{
         transform,
       }}
