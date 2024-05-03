@@ -12,14 +12,14 @@ import {
 } from "@/components/tooltip";
 import ConversationActions from "./components/ConversationActions";
 import DeleteDialog from "./components/DeleteDialog";
+import RenameDialog from "./components/RenameDialog";
 
-import { useChatDeleteQuery } from "./queries/useChatDeleteQuery";
+import { useChatDeleteMutation } from "./queries/useChatDeleteMutation";
+import { useChatRenameMutation } from "./queries/useChatRenameMutation";
 
 import { capitalize, cn } from "@/lib/utils";
 
 import { Conversation } from "@/types/chat";
-import RenameDialog from "./components/RenameDialog";
-import { useChatRenameMutation } from "./queries/useChatRenameMutation";
 
 type Props = {
   conversation: Conversation;
@@ -28,7 +28,7 @@ type Props = {
 const ConversationItem = (props: Props) => {
   const pathname = usePathname();
   const [action, setAction] = useState<"RENAME" | "DELETE" | null>(null);
-  const { deleteChat } = useChatDeleteQuery(props.conversation.id);
+  const { deleteChat } = useChatDeleteMutation(props.conversation.id);
   const { renameConversation } = useChatRenameMutation(props.conversation.id);
 
   const link = `/chat/${props.conversation.id}`;
