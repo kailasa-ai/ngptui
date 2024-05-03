@@ -54,41 +54,33 @@ const ConversationItem = (props: Props) => {
           </div>
         </Link>
         <ConversationActions onClick={setAction}>
-          <div
+          <button
             className={cn(
+              "flex items-center justify-center text-gray-950  hover:text-gray-500",
+              "transition data-[state=open]:text-gray-500 outline-none",
               "absolute right-0 top-0 bottom-0 gap-2 pr-2 invisible flex group-hover:visible",
               isActive && "visible",
               "data-[state=open]:visible"
             )}
+            aria-label="More"
           >
-            <button
-              className={cn(
-                "flex items-center justify-center text-gray-950  hover:text-gray-500",
-                "transition data-[state=open]:text-gray-500 outline-none"
-              )}
-              aria-label="More"
-            >
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <MoreHorizontal size={20} />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <TooltipArrow />
-                    <span>More</span>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </button>
-          </div>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <MoreHorizontal size={20} />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <TooltipArrow />
+                  <span>More</span>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </button>
         </ConversationActions>
         {action === "DELETE" && (
           <DeleteDialog
             onCancel={() => setAction(null)}
-            onConfirm={() => {
-              console.log("Deleted");
-              deleteChat();
-            }}
+            onConfirm={deleteChat}
             onOpenChange={() => setAction(null)}
           />
         )}

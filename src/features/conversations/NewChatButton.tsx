@@ -24,7 +24,7 @@ const NewChatButton = () => {
           New Chat
         </div>
         <div className="flex">
-          <Edit size={20} />
+          <Edit size={16} />
         </div>
       </Link>
     </div>

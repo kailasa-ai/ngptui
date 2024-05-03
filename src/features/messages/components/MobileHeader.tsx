@@ -8,6 +8,7 @@ import Sidebar from "@/app/(home)/_sidebar";
 import { DialogPortal, DialogTrigger } from "@/components/dialog";
 
 import { cn } from "@/lib/utils";
+import React from "react";
 
 const MenuButton = () => {
   return (
@@ -20,31 +21,32 @@ const MenuButton = () => {
             "focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white active:opacity-50"
           )}
         >
-          <span className="sr-only">Open sidebar</span>
+          <span className="sr-only">Open Conversations</span>
           <Menu />
         </button>
       </DialogTrigger>
-      <DialogPortal>
-        <DialogPrimitive.DialogContent
-          className={cn(
-            "fixed left-0 top-0 bottom-0 z-50 grid w-full max-w-lg h-full",
-            "gap-4 bg-transparent duration-200",
-            "data-[state=closed]:animate-slide-left data-[state=open]:animate-slide-right"
-          )}
-        >
-          <DialogPrimitive.Close asChild>
-            <DialogPrimitive.Overlay
-              className={cn(
-                "fixed inset-0 z-50 bg-black/30 opacity-0",
-                "data-[state=closed]:animate-fade-out data-[state=open]:animate-fade-in"
-              )}
-            />
-          </DialogPrimitive.Close>
-          <div className={cn("z-[50] w-max")}>
-            <Sidebar />
-          </div>
-        </DialogPrimitive.DialogContent>
-      </DialogPortal>
+      <DialogPrimitive.DialogContent
+        className={cn(
+          "fixed left-0 top-0 bottom-0 right-0 z-50 grid w-full h-full",
+          "gap-4 bg-transparent duration-200",
+          "data-[state=closed]:animate-slide-left data-[state=open]:animate-slide-right"
+        )}
+        style={{
+          pointerEvents: "all",
+        }}
+      >
+        <DialogPrimitive.Close asChild>
+          <DialogPrimitive.Overlay
+            className={cn(
+              "fixed inset-0 z-50 bg-black/30 opacity-0",
+              "data-[state=closed]:animate-fade-out data-[state=open]:animate-fade-in"
+            )}
+          />
+        </DialogPrimitive.Close>
+        <div className={cn("z-[500] w-full max-w-[20rem]")}>
+          <Sidebar />
+        </div>
+      </DialogPrimitive.DialogContent>
     </DialogPrimitive.Dialog>
   );
 };
