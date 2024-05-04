@@ -1,10 +1,10 @@
 "use client";
 
-import { LoaderIcon } from "lucide-react";
-import ConversationItem from "./ConversationItem";
-
-import { useConversationsQuery } from "@/features/conversations/queries/useConversationsQuery";
 import { useCallback, useRef } from "react";
+import { LoaderIcon } from "lucide-react";
+
+import ConversationItem from "./ConversationItem";
+import { useConversationsQuery } from "@/features/conversations/queries/useConversationsQuery";
 
 const ConversationsList = () => {
   const { conversations, isLoading, fetchNextPage, hasNextPage, isFetching } =

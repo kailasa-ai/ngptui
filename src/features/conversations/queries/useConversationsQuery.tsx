@@ -46,8 +46,6 @@ export const useConversationsQuery = () => {
     retry: 0,
   });
 
-  console.log(data);
-
   const conversations = useMemo(() => {
     if (!data) {
       return {} as GroupConversationType;

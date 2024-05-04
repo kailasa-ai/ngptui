@@ -100,21 +100,19 @@ const sendMessageApi = async ({
           }
         );
 
-        if (!payload.conversationId) {
+        if (!payload.conversationId && !!conversationId) {
           queryClient.invalidateQueries({ queryKey: ["conversations"] });
 
           onNavigate(conversationId);
-          // clear state after 100ms
-          setTimeout(() => {
-            state.clearState();
-          }, 100);
         } else {
           state.clearState();
         }
 
         onCompleted();
       },
-      onError: (error) => {},
+      onError: (error) => {
+        console.log(error);
+      },
     }
   );
 };

@@ -9,7 +9,6 @@ import CollapseButton from "./components/CollapseButton";
 import { MobileHeader } from "./components/MobileHeader";
 
 import { useAutoScroll } from "./hooks/useAutoScroll";
-import { useSidebar } from "@/hooks/useSidebar";
 import useDevice from "@/hooks/useDevice";
 
 import { cn } from "@/lib/utils";
@@ -18,7 +17,6 @@ const MessagesPage = () => {
   const params = useParams<{ id?: string }>();
 
   const { listRef, visibilityRef } = useAutoScroll();
-  const { isCollapsed } = useSidebar();
 
   const { isMobile } = useDevice();
 

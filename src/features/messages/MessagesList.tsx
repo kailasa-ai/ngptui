@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { LoaderIcon } from "lucide-react";
 
@@ -25,6 +26,12 @@ const ActiveMessages = () => {
 const MessagesList = () => {
   const params = useParams<{ id: string }>();
   const { messages, isLoading } = useMessagesQuery(params.id);
+
+  useEffect(() => {
+    return () => {
+      useActiveChat.getState().clearState();
+    };
+  }, []);
 
   if (isLoading) {
     return (
