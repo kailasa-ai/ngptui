@@ -4,10 +4,6 @@ import { authConfig } from "./auth.config";
 
 const { auth } = NextAuth(authConfig);
 
-export const ROOT = "/";
-export const PUBLIC_ROUTES = ["/"];
-export const DEFAULT_REDIRECT = "/protected";
-
 export default auth((req) => {
   const { nextUrl } = req;
 
