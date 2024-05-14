@@ -13,4 +13,7 @@ export const authConfig = {
   },
   providers: [Keycloak],
   trustHost: true,
+  pages: {
+    signIn: "signIn",
+  },
 } satisfies NextAuthConfig;
