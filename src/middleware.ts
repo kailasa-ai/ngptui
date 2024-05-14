@@ -9,7 +9,7 @@ export default auth((req) => {
 
   const isAuthenticated = !!req.auth;
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !nextUrl.pathname.includes("signin")) {
     return Response.redirect(new URL(`/signin`, nextUrl));
   }
 });

@@ -2,6 +2,7 @@ import type { NextAuthConfig } from "next-auth";
 import Keycloak from "next-auth/providers/keycloak";
 
 export const authConfig = {
+  providers: [Keycloak],
   session: { strategy: "jwt" },
   callbacks: {
     async jwt({ token, user, ...rest }) {
@@ -10,10 +11,13 @@ export const authConfig = {
     async session({ session, token, ...rest }) {
       return { ...session, user: token };
     },
+    redirect: async ({ url, baseUrl }) => {
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
   },
-  providers: [Keycloak],
+  secret: process.env.AUTH_SECRET,
   trustHost: true,
   pages: {
-    signIn: "signIn",
+    signIn: "/signin",
   },
 } satisfies NextAuthConfig;

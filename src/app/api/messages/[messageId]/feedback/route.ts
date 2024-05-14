@@ -42,7 +42,7 @@ export const POST = async (req: Request, { params }: Params) => {
         body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.DIFY_API_KEY}`,
+          Authorization: `Bearer ${process.env.DIFY_NITHYNANDAM_API_KEY}`,
         },
       }
     );

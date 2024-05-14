@@ -27,7 +27,7 @@ export const GET = async (req: Request) => {
     {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.DIFY_API_KEY}`,
+        Authorization: `Bearer ${process.env.DIFY_NITHYNANDAM_API_KEY}`,
       },
     }
   );
