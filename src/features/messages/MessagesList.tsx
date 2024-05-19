@@ -13,14 +13,22 @@ import { useActiveChat } from "./hooks/useActiveChat";
 const ActiveMessages = () => {
   const messages = useActiveChat((state) => state.messages);
 
-  return messages.map((message) => (
-    <MessageItem
-      key={message.id}
-      message={message}
-      isLast={messages[messages.length - 1].id === message.id}
-      isStreaming={true}
-    />
-  ));
+  return messages.map((message) => {
+    const isAvatar = message.role === "assistant";
+    const isThiking = isAvatar && message.content === "";
+
+    return (
+      <MessageItem
+        key={message.id}
+        message={{
+          ...message,
+          content: isThiking ? "Avatar Thinking..." : message.content,
+        }}
+        isLast={messages[messages.length - 1].id === message.id}
+        isStreaming={true}
+      />
+    );
+  });
 };
 
 const MessagesList = () => {
