@@ -95,14 +95,16 @@ const sendMessageApi = async (props: Props) => {
         const conversationId = state.messages[0].conversationId;
 
         queryClient.setQueryData(
-          ["messages", conversationId],
+          ["messages", conversationId, avatarModel],
           (oldData: Message[]) => {
             return [...(oldData || []), ...state.messages];
           }
         );
 
         if (!payload.conversationId && !!conversationId) {
-          queryClient.invalidateQueries({ queryKey: ["conversations"] });
+          queryClient.invalidateQueries({
+            queryKey: ["conversations", avatarModel],
+          });
 
           onNavigate(conversationId);
         } else {
