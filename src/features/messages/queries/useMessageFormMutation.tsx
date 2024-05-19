@@ -11,20 +11,20 @@ import { ssePost } from "@/lib/helpers";
 import { useActiveChat } from "../hooks/useActiveChat";
 
 import { Message } from "@/types/chat";
+import { useAvatarModel } from "@/hooks/useAvatarModel";
 
 type Payload = { query: string; conversationId?: string };
 
-const sendMessageApi = async ({
-  payload,
-  onNavigate,
-  queryClient,
-  onCompleted,
-}: {
+type Props = {
   payload: Payload;
+  avatarModel: string;
   queryClient: QueryClient;
   onNavigate: (conversationId: string) => void;
   onCompleted: () => void;
-}) => {
+};
+
+const sendMessageApi = async (props: Props) => {
+  const { payload, onNavigate, queryClient, onCompleted, avatarModel } = props;
   const state = useActiveChat.getState();
 
   state.setMessages("", [
@@ -52,6 +52,7 @@ const sendMessageApi = async ({
       body: {
         query: payload.query,
         conversation_id: payload.conversationId,
+        model: avatarModel,
       },
     },
     {
@@ -120,13 +121,14 @@ const sendMessageApi = async ({
 export const useMessageFormMutation = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const avatarModel = useAvatarModel();
 
   const onNavigate = (conversationId: string) => {
     router.push(`/chat/${conversationId}`);
   };
 
   const { isPending, mutateAsync, isSuccess, status, reset } = useMutation({
-    mutationKey: ["sendQuery"],
+    mutationKey: ["sendQuery", avatarModel],
     mutationFn: async (payload: Payload) => {
       return sendMessageApi({
         payload,
@@ -135,6 +137,7 @@ export const useMessageFormMutation = () => {
         onCompleted: () => {
           reset();
         },
+        avatarModel,
       });
     },
     retry: 0,

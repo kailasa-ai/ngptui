@@ -1,4 +1,7 @@
+import { ZodError } from "zod";
+
 import { auth } from "@/auth";
+import { getApiKey } from "@/lib/schema";
 
 type Params = {
   params: {
@@ -13,62 +16,87 @@ export const GET = async (req: Request, { params }: Params) => {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const userId = session.user?.email!;
+  try {
+    const searchParams = new URL(req.url).searchParams;
+    const apiKey = await getApiKey(searchParams);
 
-  const searchParams = new URLSearchParams({
-    user: userId,
-    conversation_id: params.id,
-    limit: "30",
-  });
+    const userId = session.user?.email!;
 
-  const response = await fetch(
-    `${process.env.DIFY_URL}/messages?${searchParams}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.DIFY_NITHYNANDAM_API_KEY}`,
-      },
+    const validParams = new URLSearchParams({
+      user: userId,
+      conversation_id: params.id,
+      limit: "30",
+    });
+
+    const response = await fetch(
+      `${process.env.DIFY_URL}/messages?${validParams}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.status === 404) {
+      return Response.json(
+        { error: "Conversation not found" },
+        { status: 404 }
+      );
     }
-  );
 
-  const data = await response.json();
+    return Response.json(data, {
+      status: response.status,
+    });
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return Response.json({ error: error.issues[0].message }, { status: 400 });
+    }
 
-  if (response.status === 404) {
-    return Response.json({ error: "Conversation not found" }, { status: 404 });
+    return Response.json({ error: "Internal server error" }, { status: 500 });
   }
-
-  return Response.json(data, {
-    status: response.status,
-  });
 };
 
-export const DELETE = async (_: Request, { params }: Params) => {
+export const DELETE = async (req: Request, { params }: Params) => {
   const session = await auth();
 
   if (!session || !session.user) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const userId = session.user?.email!;
+  try {
+    const searchParams = new URL(req.url).searchParams;
+    const apiKey = await getApiKey(searchParams);
 
-  const response = await fetch(
-    `${process.env.DIFY_URL}/conversations/${params.id}`,
-    {
-      body: JSON.stringify({
-        user: userId,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.DIFY_NITHYNANDAM_API_KEY}`,
-      },
-      method: "DELETE",
+    const userId = session.user?.email!;
+
+    const response = await fetch(
+      `${process.env.DIFY_URL}/conversations/${params.id}`,
+      {
+        body: JSON.stringify({
+          user: userId,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        method: "DELETE",
+      }
+    );
+
+    const data =
+      response.status === 204
+        ? { result: "success", code: 200 }
+        : { result: "failed", code: 400 };
+
+    return Response.json(data);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return Response.json({ error: error.issues[0].message }, { status: 400 });
     }
-  );
 
-  const data =
-    response.status === 204
-      ? { result: "success", code: 200 }
-      : { result: "failed", code: 400 };
-
-  return Response.json(data);
+    return Response.json({ error: "Internal server error" }, { status: 500 });
+  }
 };

@@ -1,19 +1,29 @@
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
+
+import { useAvatarModel } from "@/hooks/useAvatarModel";
 
 import { Message, RawMessage } from "@/types/chat";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 export const useMessagesQuery = (conversationId?: string) => {
   const router = useRouter();
+  const avatarModel = useAvatarModel();
+
   const { data, isLoading } = useQuery<Message[]>({
-    queryKey: ["messages", conversationId],
+    queryKey: ["messages", conversationId, avatarModel],
     queryFn: async () => {
       if (!conversationId) {
         return [];
       }
 
-      const response = await fetch(`/api/conversations/${conversationId}`);
+      const params = new URLSearchParams({
+        model: avatarModel,
+      });
+
+      const response = await fetch(
+        `/api/conversations/${conversationId}?${params}`
+      );
       const json = await response.json();
       const data = json.data as RawMessage[];
 

@@ -2,15 +2,27 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Page } from "./useConversationsQuery";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useAvatarModel } from "@/hooks/useAvatarModel";
 
 type Payload = {
   coversationId: string;
+  avatarModel: string;
 };
 
-const deleteCoversationApi = async ({ coversationId }: Payload) => {
-  const response = await fetch(`/api/conversations/${coversationId}`, {
-    method: "DELETE",
+const deleteCoversationApi = async ({
+  coversationId,
+  avatarModel,
+}: Payload) => {
+  const params = new URLSearchParams({
+    model: avatarModel,
   });
+
+  const response = await fetch(
+    `/api/conversations/${coversationId}?${params}`,
+    {
+      method: "DELETE",
+    }
+  );
 
   if (response.status !== 200) {
     throw new Error("Failed to delete conversation");
@@ -23,17 +35,18 @@ const deleteCoversationApi = async ({ coversationId }: Payload) => {
 
 export const useChatDeleteMutation = (coversationId: string) => {
   const queryClient = useQueryClient();
+  const avatarModel = useAvatarModel();
   const router = useRouter();
   const { mutate, isPending } = useMutation({
-    mutationKey: ["deletechat", coversationId],
+    mutationKey: ["deletechat", coversationId, avatarModel],
     mutationFn: async () => {
       try {
-        await deleteCoversationApi({ coversationId });
+        await deleteCoversationApi({ coversationId, avatarModel });
 
         toast.success("Conversation deleted successfully");
 
         queryClient.setQueryData(
-          ["conversations"],
+          ["conversations", avatarModel],
           (old: { pages: Page[] }) => {
             return {
               ...old,

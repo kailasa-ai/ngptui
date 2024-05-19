@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
+import { useAvatarModel } from "@/hooks/useAvatarModel";
+
 import { groupedConversationsBydate } from "../utils";
 
 import { Conversation } from "@/types/chat";
@@ -14,8 +16,15 @@ export interface Page {
   nextCursor?: string;
 }
 
-const fetchConversations = async ({ lastId }: { lastId?: string }) => {
+const fetchConversations = async ({
+  lastId,
+  avatarModel,
+}: {
+  lastId?: string;
+  avatarModel: string;
+}) => {
   const params = new URLSearchParams();
+  params.append("model", avatarModel);
 
   if (lastId) {
     params.append("lastId", lastId);
@@ -33,13 +42,18 @@ const fetchConversations = async ({ lastId }: { lastId?: string }) => {
 };
 
 export const useConversationsQuery = () => {
+  const avatarModel = useAvatarModel();
+
   const { data, isLoading, fetchNextPage, isFetching } = useInfiniteQuery<
     Page,
     Error
   >({
-    queryKey: ["conversations"],
+    queryKey: ["conversations", avatarModel],
     queryFn: ({ pageParam }) =>
-      fetchConversations({ lastId: pageParam as string | undefined }),
+      fetchConversations({
+        lastId: pageParam as string | undefined,
+        avatarModel,
+      }),
     refetchOnWindowFocus: false,
     getNextPageParam: (lastPage: Page, pages: Page[]) => lastPage.nextCursor,
     initialPageParam: undefined,

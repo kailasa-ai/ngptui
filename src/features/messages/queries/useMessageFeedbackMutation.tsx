@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Message } from "@/types/chat";
+import { useAvatarModel } from "@/hooks/useAvatarModel";
 
 type Payload = {
   conversationId: string;
@@ -15,9 +16,10 @@ type Props = {
 
 export const useMessageFeedbackMutation = (props: Props) => {
   const queryClient = useQueryClient();
+  const avatarModel = useAvatarModel();
 
   const { isPending, mutateAsync, data, error } = useMutation({
-    mutationKey: ["messageActions", props.messageId],
+    mutationKey: ["messageActions", props.messageId, avatarModel],
     mutationFn: async (payload: Payload) => {
       const response = await fetch(
         `/api/messages/${payload.messageId}/feedback`,
@@ -26,13 +28,16 @@ export const useMessageFeedbackMutation = (props: Props) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ like: payload.like }),
+          body: JSON.stringify({
+            like: payload.like,
+            model: avatarModel,
+          }),
         }
       );
       const data = await response.json();
 
       queryClient.setQueryData(
-        ["messages", payload.conversationId],
+        ["messages", payload.conversationId, avatarModel],
         (data: Message[]) => {
           return data.map((message) => {
             if (message.id === payload.messageId) {

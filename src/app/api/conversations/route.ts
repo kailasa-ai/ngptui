@@ -1,4 +1,15 @@
+import { ZodError, z } from "zod";
+
 import { auth } from "@/auth";
+import { getApiKey } from "@/lib/schema";
+
+const paramsSchema = z.object({
+  limit: z
+    .string()
+    .nullish()
+    .transform((s) => s ?? "30"),
+  lastId: z.string().optional().nullable(),
+});
 
 export const GET = async (req: Request) => {
   const session = await auth();
@@ -9,28 +20,47 @@ export const GET = async (req: Request) => {
 
   const userId = session.user?.email!;
 
-  const url = new URL(req.url);
-  const lastId = url.searchParams.get("lastId") || undefined;
-  const limit = url.searchParams.get("limit") || "30";
+  try {
+    const searchParams = new URL(req.url).searchParams;
+    const apiKey = await getApiKey(searchParams);
 
-  const params = new URLSearchParams({
-    limit: limit,
-    user: userId,
-  });
+    const validParams = await paramsSchema.parseAsync({
+      limit: searchParams.get("lastId"),
+      lastId: searchParams.get("limit"),
+    });
 
-  if (lastId) {
-    params.append("last_id", lastId);
-  }
+    const params = new URLSearchParams({
+      limit: validParams.limit!,
+      user: userId,
+    });
 
-  const response = await fetch(
-    `${process.env.DIFY_URL}/conversations?${params}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.DIFY_NITHYNANDAM_API_KEY}`,
-      },
+    if (validParams.lastId) {
+      params.append("last_id", validParams.lastId);
     }
-  );
 
-  return Response.json(await response.json());
+    const response = await fetch(
+      `${process.env.DIFY_URL}/conversations?${params}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+      }
+    );
+
+    if (response.status === 401) {
+      return Response.json(
+        { error: "Unauthorised request. Please check the api key" },
+        { status: 401 }
+      );
+    }
+
+    return Response.json(await response.json());
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return Response.json({ error: error.issues[0].message }, { status: 400 });
+    }
+
+    return Response.json({ error: "Internal server error" }, { status: 500 });
+  }
 };
