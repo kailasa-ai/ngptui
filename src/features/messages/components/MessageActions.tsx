@@ -4,7 +4,7 @@ import { useRef } from "react";
 
 import FeedbackButton, { FeedbackType } from "./actions/FeedbackButton";
 import CopyToClipBoard from "./actions/CopyToClipBoard";
-import SpeechButton from "./actions/SpeechButton";
+// import SpeechButton from "./actions/SpeechButton";
 
 import { useMessageFeedbackMutation } from "../queries/useMessageFeedbackMutation";
 
@@ -22,7 +22,6 @@ type Props = {
 };
 
 const MessageActions = ({
-  isVisible,
   text,
   isAssistant,
   messageId,
@@ -46,7 +45,7 @@ const MessageActions = ({
     >
       {isAssistant && (
         <>
-          <SpeechButton text={text} />
+          {/* <SpeechButton text={text} /> */}
           <CopyToClipBoard text={text} />
           <FeedbackButton
             isLoading={isPending && pendingRef.current === "like"}
