@@ -10,6 +10,16 @@ export const useAvatarModel = () => {
       localStorage.setItem("model", "nithyanandam");
       setModel("nithyanandam");
     }
+
+    const handleChange = () => {
+      setModel(localStorage.getItem("model"));
+    };
+
+    document.addEventListener("local-storage", handleChange);
+
+    return () => {
+      document.removeEventListener("local-storage", handleChange);
+    };
   }, [model]);
 
   return model!;
