@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuLabel,
 } from "@/components/dropdown-menu";
 import { useAvatarModel } from "@/hooks/useAvatarModel";
 
@@ -69,6 +70,9 @@ const Header = () => {
           )}
         </DropdownMenuTrigger>
         <DropdownMenuContent className="font-normal">
+          <DropdownMenuLabel className="font-normal text-xs text-gray-500">
+            Model
+          </DropdownMenuLabel>
           <DropdownMenuRadioGroup
             value={avatarModel}
             onValueChange={(value) => {
