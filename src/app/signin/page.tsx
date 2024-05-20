@@ -19,8 +19,6 @@ const SignInPage = async () => {
           "use server";
           const redirectUrl = await signIn("keycloak", { redirect: false });
 
-          localStorage.setItem("model", "nithyanandam");
-
           redirect(redirectUrl);
         }}
         className="-translate-y-[100px] flex flex-col items-center justify-center w-auto h-auto:"

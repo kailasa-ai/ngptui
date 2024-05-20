@@ -6,11 +6,6 @@ export const useAvatarModel = () => {
   );
 
   useEffect(() => {
-    if (!model) {
-      localStorage.setItem("model", "nithyanandam");
-      setModel("nithyanandam");
-    }
-
     const handleChange = () => {
       setModel(localStorage.getItem("model"));
     };
