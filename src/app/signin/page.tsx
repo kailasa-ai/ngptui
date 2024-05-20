@@ -5,8 +5,9 @@ import { Button } from "@/components/button";
 
 import { auth, signIn } from "@/auth";
 
-import emblem from "../../../public/kailasa-emblem.webp";
 import { cn } from "@/lib/utils";
+
+import emblem from "../../../public/kailasa-emblem.webp";
 
 const SignInPage = async () => {
   const session = await auth();
