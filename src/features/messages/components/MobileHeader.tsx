@@ -9,6 +9,7 @@ import { DialogPortal, DialogTrigger } from "@/components/dialog";
 
 import { cn } from "@/lib/utils";
 import React from "react";
+import ModelsDropdown from "./ModelsDropdown";
 
 const MenuButton = () => {
   return (
@@ -62,7 +63,7 @@ export const MobileHeader = () => {
     <div className="sticky top-0 py-4 z-10 flex min-h-[40px] items-center justify-center border-b pl-1">
       <MenuButton />
 
-      <div className="font-medium text-base">Ask Nithyananda</div>
+      <ModelsDropdown />
       <div className="absolute bottom-0 right-0 top-0 flex items-center">
         <button type="button" className="px-3" onClick={onNewChat}>
           <Edit size={18} />
