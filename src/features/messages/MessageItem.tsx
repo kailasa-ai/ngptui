@@ -8,7 +8,7 @@ import MarkdownContent from "./components/MarkdownContent";
 import { cn } from "@/lib/utils";
 
 import { Message } from "@/types/chat";
-import { Atom, User } from "lucide-react";
+import { User } from "lucide-react";
 
 type Props = {
   message: Message;
@@ -21,14 +21,29 @@ const MessageItem = (props: Props) => {
 
   const isAssistant = role === "assistant";
   const title = isAssistant ? "Ask Nithyananda" : "You";
-  const icon = isAssistant ? <Atom size={24} /> : <User size={24} />;
+  const icon = isAssistant ? (
+    <Image
+      src="/ask-nithyananda-logo.png"
+      alt="avataar"
+      height={32}
+      width={32}
+      className="rounded-full object-center min-w-[32px] min-h-[32px] select-none"
+    />
+  ) : (
+    <User size={32} />
+  );
 
   return (
     <div className="w-full text-gray-900 group">
       <div className="px-4 py-2 m-auto md:gap-6 text-base">
         <div className="flex flex-1 text-base mx-auto gap-3 md:px-5 lg:px-1 xl:px-5 md:max-w-3xl lg:max-w-[40rem] xl:max-w-[48rem]">
-          <div className="h-6 w-6 outline outline-1 rounded-full">
-            <div className="relative p-1 flex items-center justify-center h-6 w-6">
+          <div
+            className={cn(
+              "h-8 w-8 rounded-full",
+              !isAssistant && "outline outline-1"
+            )}
+          >
+            <div className="relative p-1 flex items-center justify-center h-8 w-8">
               {icon}
             </div>
           </div>
