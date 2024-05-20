@@ -13,7 +13,7 @@ export const useMessagesQuery = (conversationId?: string) => {
   const controller = useRef(new AbortController());
 
   const { data, isLoading } = useQuery<Message[]>({
-    queryKey: ["messages", conversationId, avatarModel],
+    queryKey: ["messages", conversationId],
     queryFn: async () => {
       if (!conversationId) {
         return [];

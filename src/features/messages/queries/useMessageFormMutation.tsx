@@ -95,7 +95,7 @@ const sendMessageApi = async (props: Props) => {
         const conversationId = state.messages[0].conversationId;
 
         queryClient.setQueryData(
-          ["messages", conversationId, avatarModel],
+          ["messages", conversationId],
           (oldData: Message[]) => {
             return [...(oldData || []), ...state.messages];
           }
