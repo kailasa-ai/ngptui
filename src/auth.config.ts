@@ -1,6 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
 import Keycloak from "next-auth/providers/keycloak";
-import { cookies } from "next/headers";
 
 export const authConfig = {
   providers: [Keycloak],
@@ -20,5 +19,6 @@ export const authConfig = {
   trustHost: true,
   pages: {
     signIn: "/signin",
+    signOut: "/logout",
   },
 } satisfies NextAuthConfig;

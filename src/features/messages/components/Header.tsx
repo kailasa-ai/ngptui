@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Edit } from "lucide-react";
+import Link from "next/link";
+import { Edit, LogOut } from "lucide-react";
 
 import { Button } from "@/components/button";
 import ModelsDropdown from "./ModelsDropdown";
@@ -28,6 +29,13 @@ const Header = () => {
         )}
         <ModelsDropdown />
       </div>
+      <Link
+        href="/logout"
+        passHref
+        className="flex items-center gap-2 p-2 text-sm font-semibold rounded-md hover:bg-gray-100"
+      >
+        <LogOut size={18} />
+      </Link>
     </header>
   );
 };
