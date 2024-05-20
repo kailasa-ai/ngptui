@@ -22,7 +22,7 @@ const ActiveMessages = () => {
         key={message.id}
         message={{
           ...message,
-          content: isThiking ? "Avatar Thinking..." : message.content,
+          content: isThiking ? "Avatar Responding..." : message.content,
         }}
         isLast={messages[messages.length - 1].id === message.id}
         isStreaming={true}
