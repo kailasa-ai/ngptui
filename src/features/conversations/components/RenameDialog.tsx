@@ -20,8 +20,8 @@ const RenameDialog = (props: Props) => {
 
   return (
     <Dialog defaultOpen={true} onOpenChange={props.onCancel}>
-      <DialogTitle>Rename Chat</DialogTitle>
       <DialogContent className="pt-12 max-w-md">
+        <DialogTitle>Rename Chat</DialogTitle>
         <Input
           type="text"
           placeholder="Conversation Name"
