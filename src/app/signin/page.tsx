@@ -5,6 +5,9 @@ import { Button } from "@/components/button";
 
 import { auth, signIn } from "@/auth";
 
+import emblem from "../../../public/kailasa-emblem.webp";
+import { cn } from "@/lib/utils";
+
 const SignInPage = async () => {
   const session = await auth();
 
@@ -13,7 +16,7 @@ const SignInPage = async () => {
   }
 
   return (
-    <div className="h-full w-full flex items-center justify-center">
+    <div className="h-full w-full flex items-center justify-center bg-[#f7f7f7]">
       <form
         action={async () => {
           "use server";
@@ -21,15 +24,24 @@ const SignInPage = async () => {
 
           redirect(redirectUrl);
         }}
-        className="-translate-y-[100px] flex flex-col items-center justify-center w-auto h-auto:"
+        className={cn(
+          "flex flex-col items-center w-auto h-auto bg-white p-10",
+          "max-w-md w-full sm:w-[448px] rounded-lg sm:shadow-lg transform transition-transform duration-300 ease-in-out h-[448px]"
+        )}
       >
-        <Image src="/ai.png" alt="AI" width={300} height={300} />
+        <Image
+          src={emblem}
+          alt="emblem"
+          width={220}
+          height={220}
+          className="mb-5"
+        />
         <Button
           type="submit"
           size="lg"
-          className="bg-[#D63C1A] text-white hover:bg-[#BA3C27]"
+          className="bg-[#420d00] text-white hover:bg-[#BA3C27]"
         >
-          SignIn To Kailasa
+          Login To Kailasa
         </Button>
       </form>
     </div>
