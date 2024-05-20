@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { useAvatarModel } from "@/hooks/useAvatarModel";
@@ -19,9 +19,11 @@ export interface Page {
 const fetchConversations = async ({
   lastId,
   avatarModel,
+  controller,
 }: {
   lastId?: string;
   avatarModel: string;
+  controller?: AbortController;
 }) => {
   const params = new URLSearchParams();
   params.append("model", avatarModel);
@@ -30,7 +32,9 @@ const fetchConversations = async ({
     params.append("lastId", lastId);
   }
 
-  const response = await fetch(`/api/conversations?${params}`);
+  const response = await fetch(`/api/conversations?${params}`, {
+    signal: controller?.signal,
+  });
   const data = await response.json();
 
   return {
@@ -43,17 +47,22 @@ const fetchConversations = async ({
 
 export const useConversationsQuery = () => {
   const avatarModel = useAvatarModel();
+  const controller = useRef(new AbortController());
 
   const { data, isLoading, fetchNextPage, isFetching } = useInfiniteQuery<
     Page,
     Error
   >({
     queryKey: ["conversations", avatarModel],
-    queryFn: ({ pageParam }) =>
-      fetchConversations({
+    queryFn: ({ pageParam }) => {
+      controller.current = new AbortController();
+
+      return fetchConversations({
         lastId: pageParam as string | undefined,
         avatarModel,
-      }),
+        controller: controller.current,
+      });
+    },
     refetchOnWindowFocus: false,
     getNextPageParam: (lastPage: Page, pages: Page[]) => lastPage.nextCursor,
     initialPageParam: undefined,

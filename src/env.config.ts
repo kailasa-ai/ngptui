@@ -3,6 +3,7 @@ export const envConfig = {
   "kriya-pada": "DIFY_KRIYA_PADA_API_KEY",
   "chariya-pada": "DIFY_CHARIYA_PADA_API_KEY",
   "yoga-pada": "DIFY_YOGA_PADA_API_KEY",
+  "ask-ananda-ganesha": "DIFY_ASK_ANANDA_GANESHA_API_KEY",
 } as const;
 
 export const modelKeys = [
@@ -10,4 +11,5 @@ export const modelKeys = [
   "kriya-pada",
   "chariya-pada",
   "yoga-pada",
+  "ask-ananda-ganesha",
 ] as const;

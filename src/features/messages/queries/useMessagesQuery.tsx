@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -9,6 +10,7 @@ import { Message, RawMessage } from "@/types/chat";
 export const useMessagesQuery = (conversationId?: string) => {
   const router = useRouter();
   const avatarModel = useAvatarModel();
+  const controller = useRef(new AbortController());
 
   const { data, isLoading } = useQuery<Message[]>({
     queryKey: ["messages", conversationId, avatarModel],
@@ -20,9 +22,13 @@ export const useMessagesQuery = (conversationId?: string) => {
       const params = new URLSearchParams({
         model: avatarModel,
       });
+      controller.current = new AbortController();
 
       const response = await fetch(
-        `/api/conversations/${conversationId}?${params}`
+        `/api/conversations/${conversationId}?${params}`,
+        {
+          signal: controller.current.signal,
+        }
       );
       const json = await response.json();
       const data = json.data as RawMessage[];
@@ -69,6 +75,12 @@ export const useMessagesQuery = (conversationId?: string) => {
       return false;
     },
   });
+
+  useEffect(() => {
+    return () => {
+      controller.current.abort("Unmounted");
+    };
+  }, [conversationId]);
 
   return {
     messages: data,
