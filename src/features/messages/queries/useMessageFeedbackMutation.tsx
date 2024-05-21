@@ -19,7 +19,7 @@ export const useMessageFeedbackMutation = (props: Props) => {
   const avatarModel = useAvatarModel();
 
   const { isPending, mutateAsync, data, error } = useMutation({
-    mutationKey: ["messageActions", props.messageId, avatarModel],
+    mutationKey: ["messageActions", props.messageId],
     mutationFn: async (payload: Payload) => {
       const response = await fetch(
         `/api/messages/${payload.messageId}/feedback`,
@@ -37,7 +37,7 @@ export const useMessageFeedbackMutation = (props: Props) => {
       const data = await response.json();
 
       queryClient.setQueryData(
-        ["messages", payload.conversationId, avatarModel],
+        ["messages", payload.conversationId],
         (data: Message[]) => {
           return data.map((message) => {
             if (message.id === payload.messageId) {
