@@ -19,7 +19,10 @@ const CollapseButton = () => {
         transform,
       }}
     >
-      <button onClick={toggleCollapsed.bind(null, !isCollapsed)}>
+      <button
+        aria-label="collapse-sidebar"
+        onClick={toggleCollapsed.bind(null, !isCollapsed)}
+      >
         <div className="flex h-[72px] w-8 items-center justify-center">
           <div className="flex h-6 w-6 flex-col items-center">
             <div

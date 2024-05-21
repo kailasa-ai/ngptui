@@ -50,7 +50,7 @@ const ConversationsList = () => {
             key={key}
             ref={index === keys.length - 1 ? lastElementRef : null}
           >
-            <h3 className="h-9 pb-2 pt-3 px-2 text-xs font-medium text-ellipsis overflow-hidden break-all text-gray-400">
+            <h3 className="h-9 pb-2 pt-3 px-2 text-xs font-medium text-ellipsis overflow-hidden break-all text-gray-500">
               {key}
             </h3>
             <ol>
