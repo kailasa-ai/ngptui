@@ -1,5 +1,9 @@
 import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import RemarkGfm from "remark-gfm";
+import RemarkMath from "remark-math";
+import RemarkBreaks from "remark-breaks";
+import RehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 
 type Props = {
   children: string;
@@ -9,13 +13,19 @@ const MarkdownContent = ({ children }: Props) => {
   return (
     <Markdown
       components={{
-        ol: ({ children }) => (
-          <ol className="list-decimal list-inside list flex flex-col gap-3">
+        ol: ({ children, ...props }) => (
+          <ol
+            {...props}
+            className="list-decimal list-inside list flex flex-col gap-3"
+          >
             {children}
           </ol>
         ),
-        ul: ({ children }) => (
-          <ul className="list-disc list-inside list flex flex-col gap-3">
+        ul: ({ children, ...props }) => (
+          <ul
+            {...props}
+            className="list-disc list-inside list flex flex-col gap-3"
+          >
             {children}
           </ul>
         ),
@@ -27,9 +37,18 @@ const MarkdownContent = ({ children }: Props) => {
             rel="noreferrer"
           />
         ),
-        li: ({ children }) => <li className="inline-flex">{children}</li>,
+        li: ({ children, ...props }) => (
+          <li {...props} className="inline-flex">
+            {children}
+          </li>
+        ),
       }}
-      remarkPlugins={[remarkGfm]}
+      remarkPlugins={[
+        [RemarkMath, { singleDollarTextMath: false }],
+        RemarkGfm,
+        RemarkBreaks,
+      ]}
+      rehypePlugins={[RehypeKatex]}
     >
       {children}
     </Markdown>

@@ -42,7 +42,7 @@ const SignInPage = async () => {
           size="lg"
           className="bg-[#420d00] text-white hover:bg-[#BA3C27]"
         >
-          Login To Kailasa
+          Login
         </Button>
       </form>
     </div>

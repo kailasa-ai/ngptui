@@ -103,6 +103,12 @@
     --sidebar-surface-tertiary: var(--gray-750);
     --link: #7ab7ff;
     --link-hover: #5e83b3;
+
+    --dark-red: #420d00;
+    --whitish: #f7f7f7;
+    --pinkish: #f9d3c2;
+
+    /* #ffefec */
   }
 }
 
@@ -147,6 +153,20 @@
 
   body *::-webkit-scrollbar-thumb:hover {
     background-color: #e5e7eb;
+  }
+
+  table td,
+  table th {
+    border: 1px solid var(--border-medium);
+  }
+
+  th {
+    text-align: left;
+  }
+
+  td,
+  th {
+    padding: 4px 12px;
   }
 }
 
