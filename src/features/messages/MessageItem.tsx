@@ -29,7 +29,7 @@ const MessageItem = (props: Props) => {
   const title = isAssistant ? currentModel?.name ?? "Ask Nithyananda" : "You";
   const icon = isAssistant ? (
     <Image
-      src="/ask-nithyananda-logo.png"
+      src="/ask-nithyananda.png"
       alt="avataar"
       height={32}
       width={32}

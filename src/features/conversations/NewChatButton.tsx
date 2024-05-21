@@ -19,7 +19,7 @@ const NewChatButton = () => {
         <div className="h-7 w-7 flex-shrink-0">
           <div className="relative flex h-full items-center justify-center rounded-full">
             <Image
-              src="/ask-nithyananda-logo.png"
+              src="/ask-nithyananda.png"
               alt="avataar"
               height={32}
               width={32}
