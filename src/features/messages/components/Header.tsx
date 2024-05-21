@@ -33,6 +33,7 @@ const Header = () => {
         href="/logout"
         passHref
         className="flex items-center gap-2 p-2 text-sm font-semibold rounded-md hover:bg-gray-100"
+        aria-label="Logout"
       >
         <LogOut size={18} />
       </Link>
