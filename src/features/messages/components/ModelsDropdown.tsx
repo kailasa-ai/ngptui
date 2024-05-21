@@ -9,30 +9,10 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuLabel,
 } from "@/components/dropdown-menu";
+
 import { useAvatarModel } from "@/hooks/useAvatarModel";
 
-const models = [
-  {
-    name: "Ask Nithyananda",
-    id: "nithyanandam",
-  },
-  {
-    name: "Ask Ananda Ganesha",
-    id: "ask-ananda-ganesha",
-  },
-  {
-    name: "Yoga Pada",
-    id: "yoga-pada",
-  },
-  {
-    name: "Kriya Pada",
-    id: "kriya-pada",
-  },
-  // {
-  //   name: "Chariya Pada",
-  //   id: "chariya-pada",
-  // },
-];
+import { models } from "../models";
 
 const ModelsDropdown = () => {
   const avatarModel = useAvatarModel();

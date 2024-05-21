@@ -1,14 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import { User } from "lucide-react";
 
 import MessageActions from "./components/MessageActions";
 import MarkdownContent from "./components/MarkdownContent";
 
+import { useAvatarModel } from "@/hooks/useAvatarModel";
+
 import { cn } from "@/lib/utils";
 
 import { Message } from "@/types/chat";
-import { User } from "lucide-react";
+
+import { models } from "./models";
 
 type Props = {
   message: Message;
@@ -18,9 +22,11 @@ type Props = {
 
 const MessageItem = (props: Props) => {
   const { role, content, id } = props.message;
-
+  const avatarModel = useAvatarModel();
+  const currentModel = models.find((model) => model.id === avatarModel);
   const isAssistant = role === "assistant";
-  const title = isAssistant ? "Ask Nithyananda" : "You";
+
+  const title = isAssistant ? currentModel?.name ?? "Ask Nithyananda" : "You";
   const icon = isAssistant ? (
     <Image
       src="/ask-nithyananda-logo.png"
