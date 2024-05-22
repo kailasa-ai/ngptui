@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Textarea from "rc-textarea";
 
 type Props = {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -8,10 +9,8 @@ type Props = {
 
 const ChatInput = (props: Props) => {
   return (
-    <textarea
-      onKeyDown={props.onKeyDown}
-      rows={1}
-      tabIndex={0}
+    <Textarea
+      autoSize={{ minRows: 1, maxRows: 4 }}
       className={cn(
         "resize-none border border-gray-400 rounded-lg outline-none h-[52px]",
         "m-0 w-full resize-none border-0 bg-transparent focus:ring-0",
@@ -21,7 +20,7 @@ const ChatInput = (props: Props) => {
       placeholder="Ask Nithyananda..."
       onChange={props.onChange}
       value={props.value}
-    ></textarea>
+    />
   );
 };
 

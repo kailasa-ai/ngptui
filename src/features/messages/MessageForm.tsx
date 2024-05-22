@@ -34,7 +34,7 @@ const MessageForm = (props: Props) => {
         className={cn(
           "overflow-hidden [&:has(textarea:focus)]:border-token-border-xheavy",
           "[&:has(textarea:focus)]:shadow-[0_2px_6px_rgba(0,0,0,.05)] flex flex-col",
-          "w-full flex-grow relative border dark:text-white rounded-2xl bg-token-main-surface-primary border-token-border-medium"
+          "w-full flex-grow relative border dark:text-white rounded-2xl border-token-border-medium"
         )}
       >
         <ChatInput
