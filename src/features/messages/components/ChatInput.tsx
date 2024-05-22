@@ -1,5 +1,6 @@
-import { cn } from "@/lib/utils";
 import Textarea from "rc-textarea";
+
+import { cn } from "@/lib/utils";
 
 type Props = {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -20,6 +21,7 @@ const ChatInput = (props: Props) => {
       placeholder="Ask Nithyananda..."
       onChange={props.onChange}
       value={props.value}
+      onKeyDown={props.onKeyDown}
     />
   );
 };
