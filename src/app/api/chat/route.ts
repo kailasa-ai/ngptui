@@ -1,7 +1,7 @@
 import { ZodError, z } from "zod";
 
 import { auth } from "@/auth";
-import { avatarModelSchema, getApiKey, getApiKeyfromModel } from "@/lib/schema";
+import { avatarModelSchema, getApiKeyfromModel } from "@/lib/schema";
 
 const chatSchema = avatarModelSchema.extend({
   query: z.string(),
