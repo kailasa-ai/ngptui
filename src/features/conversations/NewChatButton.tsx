@@ -6,13 +6,13 @@ import { cn } from "@/lib/utils";
 
 const NewChatButton = () => {
   return (
-    <div className="sticky left-0 right-0 top-0 z-20 pt-3 bg-[#f9f9f9] flex items-center justify-between select-none">
+    <div className="sticky left-0 right-0 top-0 z-20 pt-3 flex items-center justify-between select-none">
       <Link
         href="/"
         className={cn(
           "group w-full h-10 px-2",
           "flex items-center gap-2",
-          "font-medium hover:bg-[#ececec]",
+          "font-medium hover:bg-sidebar-primary hover:text-white",
           "rounded-lg transition-colors duration-200 ease-in-out"
         )}
       >

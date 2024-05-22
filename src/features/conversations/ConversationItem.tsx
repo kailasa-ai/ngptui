@@ -33,25 +33,29 @@ const ConversationItem = (props: Props) => {
 
   const link = `/chat/${props.conversation.id}`;
   const isActive = pathname === link;
+  const name = capitalize(props.conversation.name);
 
   return (
     <li className="relative h-auto">
       <div
         className={cn(
-          "group relative rounded-lg active:opacity-90 hover:bg-[#ececec]",
-          "transition-all duration-300",
-          isActive && "bg-[#ececec]"
+          "group relative rounded-lg active:opacity-90 hover:bg-sidebar-primary hover:text-white",
+          isActive && "bg-sidebar-primary text-white"
         )}
       >
-        <Link href={link} className={cn("flex items-center gap-2 p-2")}>
+        <Link
+          href={link}
+          className={cn("flex items-center gap-2 p-2")}
+          title={name}
+        >
           <div className="relative grow overflow-hidden whitespace-nowrap">
-            {capitalize(props.conversation.name)}
+            {capitalize(name)}
             <div
               className={cn(
                 "absolute bottom-0 right-0 top-0",
-                "bg-gradient-to-l to-transparent from-sidebar-primary group-hover:from-sidebar-secondary",
-                "w-8 from-0% group-hover:w-20 group-hover:from-60%",
-                isActive && "from-sidebar-secondary from-60% w-20"
+                "bg-gradient-to-l from-sidebar-surface group-hover:from-sidebar-primary",
+                "w-8 from-0% group-hover:w-20 group-hover:from-40%",
+                isActive && "from-sidebar-primary from-40% w-20"
               )}
             ></div>
           </div>
@@ -59,10 +63,10 @@ const ConversationItem = (props: Props) => {
         <ConversationActions onClick={setAction}>
           <button
             className={cn(
-              "flex items-center justify-center text-gray-950  hover:text-gray-500",
-              "transition data-[state=open]:text-gray-500 outline-none",
-              "absolute right-0 top-0 bottom-0 gap-2 pr-2 invisible flex group-hover:visible",
-              isActive && "visible",
+              "flex items-center justify-center hover:text-white",
+              "data-[state=open]:text-white outline-none",
+              "absolute right-0 top-0 bottom-0 gap-2 pr-2 invisible flex group-hover:visible group-hover:text-white",
+              isActive && "visible text-white",
               "data-[state=open]:visible"
             )}
             aria-label="More"

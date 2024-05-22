@@ -56,6 +56,11 @@ const config = {
           DEFAULT: "hsl(var(--tooltip))",
           foreground: "hsl(var(--tooltip-foreground))",
         },
+        sidebar: {
+          surface: "hsl(var(--sidebar-surface))",
+          foreground: "hsl(var(--sidebar-surface-foreground))",
+          primary: "var(--sidebar-primary)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
