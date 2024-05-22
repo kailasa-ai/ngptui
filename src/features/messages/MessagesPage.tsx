@@ -35,7 +35,7 @@ const MessagesPage = () => {
             <div className="h-full w-full">
               <div
                 ref={listRef}
-                className="h-full overflow-auto w-full text-sm pb-9 scroll-smooth"
+                className="h-full overflow-auto gray-scrollbar w-full text-sm pb-9 scroll-smooth"
               >
                 {!isMobile && <Header />}
                 <MessagesList />

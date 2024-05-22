@@ -123,6 +123,10 @@
     background-color: #ffeeed;
   }
 
+  .gray-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #e5e7eb;
+  }
+
   table td,
   table th {
     border: 1px solid var(--border-medium);
