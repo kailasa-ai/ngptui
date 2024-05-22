@@ -1,5 +1,5 @@
 export const envConfig = {
-  nithyanandam: "DIFY_NITHYNANDAM_API_KEY",
+  nithyanandam: "DIFY_NITHYANANDAM_API_KEY",
   "kriya-pada": "DIFY_KRIYA_PADA_API_KEY",
   "chariya-pada": "DIFY_CHARIYA_PADA_API_KEY",
   "yoga-pada": "DIFY_YOGA_PADA_API_KEY",
