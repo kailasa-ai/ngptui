@@ -1,8 +1,8 @@
-import { ExternalLink } from "lucide-react";
+import { Copyright, ExternalLink } from "lucide-react";
 
 const Links = () => {
   return (
-    <div className="flex flex-col gap-2 py-4 select-none sticky bottom-0 bg-sidebar-surface">
+    <div className="flex flex-col gap-3 py-4 select-none sticky bottom-0 bg-sidebar-surface">
       <a
         href="https://ecitizen.kailasamailer.com/pages/nithyananda-gpt-feedback"
         rel="noopener noreferrer"
@@ -21,6 +21,13 @@ const Links = () => {
         <span>Volunteer</span>
         <ExternalLink size={16} />
       </a>
+      <p className="text-xs">
+        <p className="flex items-center gap-1">
+          <Copyright size={14} />
+          <span>2024 Sri Nithyananda Paramashivam</span>
+        </p>
+        <p className="text-right w-full pr-2">All Rights Reserved</p>
+      </p>
     </div>
   );
 };
