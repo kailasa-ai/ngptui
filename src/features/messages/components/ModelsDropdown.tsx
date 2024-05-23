@@ -24,7 +24,7 @@ const ModelsDropdown = () => {
     <DropdownMenu>
       <DropdownMenuTrigger
         // disabled={!!params.id}
-        className="flex items-center gap-2 group outline-none"
+        className="flex items-center gap-2 group outline-none select-none"
       >
         <h2 className="text-lg font-medium">{currentModel?.name}</h2>
         {/* {!params.id && ( */}

@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 const NewChatButton = () => {
   return (
-    <div className="sticky left-0 right-0 top-0 z-20 pt-3 flex items-center justify-between select-none">
+    <div className="sticky left-0 right-0 top-0 z-20 pt-3 flex items-center justify-between select-none bg-sidebar-surface">
       <Link
         href="/"
         className={cn(

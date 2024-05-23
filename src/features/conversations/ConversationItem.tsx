@@ -64,7 +64,7 @@ const ConversationItem = (props: Props) => {
           <button
             className={cn(
               "flex items-center justify-center hover:text-white",
-              "data-[state=open]:text-white outline-none",
+              "data-[state=open]:text-primary outline-none",
               "absolute right-0 top-0 bottom-0 gap-2 pr-2 invisible flex group-hover:visible group-hover:text-white",
               isActive && "visible text-white",
               "data-[state=open]:visible"
