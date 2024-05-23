@@ -26,7 +26,7 @@ const Links = () => {
           <Copyright size={14} />
           <span>{new Date().getFullYear()} Sri Nithyananda Paramashivam</span>
         </p>
-        <p className="text-right w-full pr-2">All Rights Reserved</p>
+        <p className="text-left">All Rights Reserved</p>
       </div>
     </div>
   );
