@@ -74,9 +74,8 @@
     --dark-red: #420d00;
     --whitish: #f7f7f7;
     --pinkish: #f9d3c2;
-
-
-    /* #ffefec */
+    --border-light: rgba(0, 0, 0, 0.1);
+    --border-medium: rgba(0, 0, 0, 0.15);
   }
 }
 
