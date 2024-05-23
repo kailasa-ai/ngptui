@@ -9,8 +9,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ask Nithyananda",
-  description: "World's first Spiritual AI",
+  title: "Ask Nithyananda - World's first Spiritual AI",
+  description: "Experience Enlightenment With AI!",
   icons: {
     icon: "/favicon.ico",
   },
@@ -19,12 +19,15 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Ask Nithyananda",
-    title: "Ask Nithyananda",
-    description: "World's first Spiritual AI",
+    title: "Ask Nithyananda - World's first Spiritual AI",
+    description: "Experience Enlightenment With AI!",
     images: [
       {
         url: "/og-banner.png",
         alt: "Ask Nithyananda",
+        width: 1920,
+        height: 1080,
+        type: "image/png",
       },
     ],
   },
