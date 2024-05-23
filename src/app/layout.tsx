@@ -10,11 +10,24 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Ask Nithyananda",
-  description: "Learn the teachings of SPH Nithyananda through AI",
+  description: "World's first Spiritual AI",
   icons: {
     icon: "/favicon.ico",
   },
   manifest: "/manifest.json",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Ask Nithyananda",
+    title: "Ask Nithyananda",
+    description: "World's first Spiritual AI",
+    images: [
+      {
+        url: "/og-banner.png",
+        alt: "Ask Nithyananda",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
