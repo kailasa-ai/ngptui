@@ -5,7 +5,6 @@ import { LoaderIcon } from "lucide-react";
 
 import ConversationItem from "./ConversationItem";
 import { useConversationsQuery } from "@/features/conversations/queries/useConversationsQuery";
-import Image from "next/image";
 
 const ConversationsList = () => {
   const { conversations, isLoading, fetchNextPage, hasNextPage, isFetching } =
@@ -46,7 +45,6 @@ const ConversationsList = () => {
     <div className="flex flex-col pb-3 gap-5 text-gray-950 text-sm select-none">
       {keys.length === 0 && (
         <div className="flex flex-col items-center justify-center h-full text-center text-base">
-          <Image alt="ai" src={"/ai.png"} width={100} height={100} />
           <p>
             You don&apos;t have any <br /> conversations
           </p>
