@@ -24,7 +24,7 @@ const Links = () => {
       <p className="text-xs">
         <p className="flex items-center gap-1">
           <Copyright size={14} />
-          <span>2024 Sri Nithyananda Paramashivam</span>
+          <span>{new Date().getFullYear()} Sri Nithyananda Paramashivam</span>
         </p>
         <p className="text-right w-full pr-2">All Rights Reserved</p>
       </p>
