@@ -27,7 +27,8 @@ const MessageForm = (props: Props) => {
   return (
     <form
       className={cn(
-        "stretch mx-2 flex flex-row gap-3 last:mb-2 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-2xl xl:max-w-3xl"
+        "stretch mx-2 flex flex-col gap-3 last:mb-2 md:mx-4 lg:mx-auto",
+        "lg:max-w-2xl xl:max-w-3xl"
       )}
     >
       <div
@@ -95,6 +96,10 @@ const MessageForm = (props: Props) => {
             <ArrowUp size={18} />
           </IconButton>
         )}
+      </div>
+      <div className="text-gray-500 text-xs text-center">
+        Ask Nithyananda provides AI-generated guidance; consult experts for
+        critical advice.
       </div>
     </form>
   );
